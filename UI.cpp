@@ -4,23 +4,28 @@
 #include "UI.h"
 #include "modes.h"
 
-void isCorrect(int* choose);
+void showTopMenu();
+void get_mode(int* choose);
 void clearBuffer();
-void print_with_specifiers(quadEqCase curOutput, double* x1, double* x2);
+void print_with_specifiers(nOutput curOutput, double* x1, double* x2);
 
-int chooseMode(){
+typedef int mode;
+
+mode chooseMode(){
+    showTopMenu();
+    mode choose = 0;
+    get_mode(&choose);
+    return choose - 1;
+}
+void showTopMenu(){
     printf("%s", WELCOME);
-    // showTopMenu();
     printf("%s", CHOOSE_MODE);
     for(int curMode = 0; curMode < MENU_TOP_BORDER; curMode++){
         printf("%d) %s", curMode + 1, allModes[curMode].toPrint);
     }
-    int choose = 0;
-    isCorrect(&choose);
-    return choose - 1;
 }
 
-void isCorrect(int* choose){
+void get_mode(int* choose){
 // assert
     while(!(scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > MENU_TOP_BORDER){
         printf("%s", ALLERT_INCORRECT);
@@ -36,15 +41,14 @@ void clearBuffer(){
 
 void printFinalOutput(double* x1, double* x2,
                  numRoots curOutput){
-    for(int i = 0; i < countOutputCases; i++){
-        if(allOutputs[i].quantity == curOutput){
-            print_with_specifiers(allOutputs[i], x1, x2);
+    for(int curOutputStruct = 0; curOutputStruct < countOutputCases; curOutputStruct++){
+        if(allOutputs[curOutputStruct].quantity == curOutput){
+            print_with_specifiers(allOutputs[curOutputStruct], x1, x2);
         }
     }
 }
 
-// печать строки с поиском в ней спецификаторов %lf и заменой на переменные
-void print_with_specifiers(quadEqCase curOutput,
+void print_with_specifiers(nOutput curOutput,
                             double* x1, double* x2){
     int curSymbol = 0;
     double* roots[] = {x1, x2}; // массив указателей на корни для печати
@@ -63,12 +67,12 @@ void print_with_specifiers(quadEqCase curOutput,
     }
 }
 
-int BAD_NAME_UI_SCANF(double* a, double* b, double* c) {
+int get_coefficents(double* a, double* b, double* c) {
     printf("%s", INSTRUCTION);
     while(scanf("%lf %lf %lf", a, b, c) != 3){
-        int ch = '\0';
+        int symbol = '\0';
         // Возвращение в "верхнее" меню
-        if((ch = getchar()) == 'q'){
+        if((symbol = getchar()) == QUIT){
             clearBuffer();
             return RETURN_TO_TOP_MENU;
         }
@@ -77,5 +81,5 @@ int BAD_NAME_UI_SCANF(double* a, double* b, double* c) {
             clearBuffer();
         }
     }
-    return RETURN_TO_TOP_MENU; // continue // coef read cool
+    return SUCCESS_CHOOSE_MODE; // continue // coef read cool
 }

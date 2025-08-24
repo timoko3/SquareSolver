@@ -8,17 +8,17 @@
 #include "UI.h"
 
 int main(void){
-    bool flagOutOfMode = true;
-    while(flagOutOfMode){
+    bool menuFLag = true;
+    while(menuFLag){
         int choose = chooseMode();
-        bool flagInMode = true;
+        bool modeFlag = true;
         if(choose == MENU_TOP_BORDER){
-            flagInMode = false;
-            flagOutOfMode = false;
+            modeFlag = false;
+            menuFLag = false;
         }
-        while(flagInMode){
+        while(modeFlag){
             if(((allModes[choose].mode)()) == RETURN_TO_TOP_MENU){
-                flagInMode = false;
+                modeFlag = false;
             }
         }
     }
