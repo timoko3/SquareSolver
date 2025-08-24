@@ -1,19 +1,18 @@
+
 #include <stdio.h>
+#include "nRoots.h"
 #include "UI.h"
+#include "modes.h"
 
-const char* WELCOME = "Добро пожаловать!\n";
-const char* CHOOSE_MODE = "Выберите один из режимов:\n";
-const char* ALLERT_INCORRECT = "Выбирайте из предложенных вариантов\n";
+void isCorrect(int* choose);
+void clearBuffer();
+void print_with_specifiers(quadEqCase curOutput, double* x1, double* x2);
 
-// "верхнее" меню
-
-// меняет mode на int
-typedef int mode;      // name
-
-mode showTopMenu(menuMode* allModes){
+int chooseMode(){
     printf("%s", WELCOME);
+    // showTopMenu();
     printf("%s", CHOOSE_MODE);
-    for(int curMode = 0; curMode < TOP_BORDER; curMode++){
+    for(int curMode = 0; curMode < MENU_TOP_BORDER; curMode++){
         printf("%d) %s", curMode + 1, allModes[curMode].toPrint);
     }
     int choose = 0;
@@ -21,20 +20,22 @@ mode showTopMenu(menuMode* allModes){
     return choose - 1;
 }
 
-// Ввод choose и обработка правильности ввода в меню
 void isCorrect(int* choose){
 // assert
-    while(!(scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > TOP_BORDER){
+    while(!(scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > MENU_TOP_BORDER){
         printf("%s", ALLERT_INCORRECT);
         clearBuffer();
     }
 }
 
-// вывод результатов
+void clearBuffer(){
+    while(getchar() != '\n'){
+        continue;
+    }
+}
 
-// функция вывода в зависимости от кол-ва корней уравнения
 void printFinalOutput(double* x1, double* x2,
-                 quadEqConst curOutput){
+                 numRoots curOutput){
     for(int i = 0; i < countOutputCases; i++){
         if(allOutputs[i].quantity == curOutput){
             print_with_specifiers(allOutputs[i], x1, x2);
@@ -60,4 +61,21 @@ void print_with_specifiers(quadEqCase curOutput,
             curSymbol++;
         }
     }
+}
+
+int BAD_NAME_UI_SCANF(double* a, double* b, double* c) {
+    printf("%s", INSTRUCTION);
+    while(scanf("%lf %lf %lf", a, b, c) != 3){
+        int ch = '\0';
+        // Возвращение в "верхнее" меню
+        if((ch = getchar()) == 'q'){
+            clearBuffer();
+            return RETURN_TO_TOP_MENU;
+        }
+        else{
+            printf("%s", HOW_TO_USE);
+            clearBuffer();
+        }
+    }
+    return RETURN_TO_TOP_MENU; // continue // coef read cool
 }

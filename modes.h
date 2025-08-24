@@ -1,26 +1,28 @@
 
-// константы для меню
-enum menuConst{
-    RETURN_TO_TOP_MENU = -1
+#include <stdio.h>
+
+typedef int mode;      
+typedef int(*menuPtr)();
+
+struct menuMode{
+    menuPtr mode;
+    const char* toPrint;
 };
 
-enum quadEqConst{
-    INFINITY_OF_ROOTS,
-    NO_VALID_ROOTS,
-    TWO_ROOTS,
-    ONE_ROOT,
-    NO_ANY_ROOTS
-};
+const int MENU_TOP_BORDER = 4; 
 
-void clearBuffer();
-// функции режима
+const char* const USER_EQUATIONS_VARIANT = "Решение введенных вами квадратных уравнений\t";
+const char* const RANDOM_EQUATIONS_VARIANT = "Решение множества квадратных уравнений со случайными коэффицентами\n";
+const char* const TRAINER_EQUATIONS_VARIANT = "Тренажер по решению квадртаных уравнений\t";
+const char* const EXIT_VARIANT = "Выйти из программы\n";
+
 int userEquations();
 int randomEquations();
 int trainerEquations();
 
-// функции внутри режима userEquations
-quadEqConst solveLinear(double b, double c, double* x);
-quadEqConst solveQuadEqua(double a, double b, double c, double* x1, double* x2);
-
-// UI функции
-void printFinalOutput(double* x1, double* x2, quadEqConst curOutput);
+const struct menuMode allModes[MENU_TOP_BORDER]{
+    {userEquations, USER_EQUATIONS_VARIANT},
+    {randomEquations, RANDOM_EQUATIONS_VARIANT},
+    {trainerEquations, TRAINER_EQUATIONS_VARIANT},
+    {NULL, EXIT_VARIANT}
+};

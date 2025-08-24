@@ -1,0 +1,1 @@
+bool isZero(double number);

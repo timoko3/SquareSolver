@@ -1,16 +1,18 @@
- //main_quad.c — Решение квадратного уравнения
 //assert
 #include <stdio.h>
 #include <stdbool.h>
-#include "main.h"
+#include <math.h>
+
+#include "solve.h"
+#include "modes.h"
+#include "UI.h"
 
 int main(void){
-    // главная часть от куда начинается выполнение всей программы
     bool flagOutOfMode = true;
     while(flagOutOfMode){
-        int choose = showTopMenu(allModes);
+        int choose = chooseMode();
         bool flagInMode = true;
-        if(choose == TOP_BORDER){
+        if(choose == MENU_TOP_BORDER){
             flagInMode = false;
             flagOutOfMode = false;
         }
@@ -22,15 +24,3 @@ int main(void){
     }
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-

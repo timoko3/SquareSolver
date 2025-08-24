@@ -1,6 +1,8 @@
-#include <stdio.h>
+#include <stdbool.h>
 #include <math.h>
-#include "sidefunc.h"
+#include "common.h"
+
+const double INFELICITY = 0.000001;
 
 // проверка double на равенство нулю
 bool isZero(double number){
@@ -8,11 +10,4 @@ bool isZero(double number){
         return true;
     }
     return false;
-}
-
-// очистка буфера
-void clearBuffer(){
-    while(getchar() != '\n'){
-        continue;
-    }
 }

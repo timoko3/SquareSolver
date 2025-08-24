@@ -1,36 +1,23 @@
-// меню
-const int BOTTOM_BORDER = 1;
-const int TOP_BORDER = 4;
+#include "nRoots.h"
 
-const int countOutputCases = 5;// кол-во вариантов вывода
-
-// константы для меню
 enum menuConst{
     RETURN_TO_TOP_MENU = -1
 };
 
-enum quadEqConst{
-    INFINITY_OF_ROOTS,
-    NO_VALID_ROOTS,
-    TWO_ROOTS,
-    ONE_ROOT,
-    NO_ANY_ROOTS
-};
+const int BOTTOM_BORDER = 1; 
 
-// создание типа для указателя на функцию в меню
-typedef int(*menuPtr)();
+const char* const WELCOME = "Добро пожаловать!\n";
+const char* const CHOOSE_MODE = "Выберите один из режимов:\n";
+const char* const ALLERT_INCORRECT = "Выбирайте из предложенных вариантов\n";
+const char* const INSTRUCTION = "Введите парметры приведенного квадратного уравнения ax^2+bx+c:(для возврата к выбору режима нажмите q)\n";
+const char* const HOW_TO_USE = "Необходимо вводить парметры в виде: a b c(a,b,c — действительные числа)\n";
 
-// прототип структуры меню
-struct menuMode{
-    menuPtr mode;
-    const char * toPrint;
-};
-
-// прототипы структур для результатов решения
 struct quadEqCase{
-    quadEqConst quantity;
-    const char * toPrint;
+    numRoots quantity;
+    const char* toPrint;
 };
+
+const int countOutputCases = 5;
 
 const struct quadEqCase allOutputs[countOutputCases]{
     {INFINITY_OF_ROOTS, "Данное уравнение имеет бесконечное количество решений\n"},
@@ -40,13 +27,6 @@ const struct quadEqCase allOutputs[countOutputCases]{
     {NO_ANY_ROOTS, "Данное уравнения не имеет решений\n"}
 };
 
-// UI функции
-int showTopMenu(struct menuMode* allModes);
-void printFinalOutput(double* x1, double* x2, quadEqConst curOutput);
-void isCorrect(int* choose);
-void clearBuffer();
-void print_with_specifiers(quadEqCase curOutput, double* x1, double* x2);
-
-
-
-
+void printFinalOutput(double* x1, double* x2, numRoots curOutput);
+int BAD_NAME_UI_SCANF(double* a, double* b, double* c);
+int chooseMode();

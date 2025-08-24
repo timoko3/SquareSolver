@@ -1,18 +1,17 @@
-#include <stdio.h>
+
 #include <math.h>
-#include "computing.h"
 
-quadEqConst solveQuadEqua(double a, double b, double c,
+#include "solve.h"
+#include "common.h"
+
+numRoots solveQuadEqua(double a, double b, double c,
                   double* x1, double* x2){
-
-    // линейный случай
     if(isZero(a)){
         return solveLinear(b, c, x1);
     }
 
-    double discriminant = b * b - 4 * a * c; //вычисление дискриминанта
+    double discriminant = b * b - 4 * a * c; 
 
-    // условие отстуствия дейстивтельных корней
     if(isZero(discriminant)){
         *x1 = (-b) / (2 * a);
         return ONE_ROOT;
@@ -27,8 +26,7 @@ quadEqConst solveQuadEqua(double a, double b, double c,
     }
 }
 
-// решение линейного варианта квадратного уравнения
-quadEqConst solveLinear(double b, double c, double* x){
+numRoots solveLinear(double b, double c, double* x){
     if(isZero(b)){
         if(isZero(c)){
             return INFINITY_OF_ROOTS;
