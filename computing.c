@@ -1,8 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <math.h>
-#include <stdbool.h>
-//#include "all.h"
 #include "computing.h"
 
 quadEqConst solveQuadEqua(double a, double b, double c,

@@ -1,8 +1,6 @@
  //main_quad.c — Решение квадратного уравнения
 //assert
 #include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include <stdbool.h>
 #include "main.h"
 
