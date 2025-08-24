@@ -8,9 +8,7 @@ bool isZero(double number){
     if(fabs(number) < INFELICITY){
         return true;
     }
-    else{
-        return false;
-    }
+    return false;
 }
 
 // очистка буфера

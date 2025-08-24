@@ -5,7 +5,9 @@
 
 const char* WELCOME = "Добро пожаловать!\n";
 const char* CHOOSE_MODE = "Выберите один из режимов:\n";
-const char* RIGHT_INPUT = "Выбирайте из предложенных вариантов\n";
+const char* ALLERT_INCORRECT = "Выбирайте из предложенных вариантов\n";
+
+// "верхнее" меню
 
 // меняет mode на int
 typedef int mode;      // name
@@ -13,22 +15,24 @@ typedef int mode;      // name
 mode showTopMenu(menuMode* allModes){
     printf("%s", WELCOME);
     printf("%s", CHOOSE_MODE);
-    for(int i = 0; i < TOP_BORDER; i++){
-        printf("%d) %s", i + 1, allModes[i].toPrint);
+    for(int curMode = 0; curMode < TOP_BORDER; curMode++){
+        printf("%d) %s", curMode + 1, allModes[curMode].toPrint);
     }
     int choose = 0;
     isCorrect(&choose);
     return choose - 1;
 }
 
-// Обработка правильности ввода в меню
+// Ввод choose и обработка правильности ввода в меню
 void isCorrect(int* choose){
 // assert
-    while((scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > TOP_BORDER){
-        printf("%s", RIGHT_INPUT);
+    while(!(scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > TOP_BORDER){
+        printf("%s", ALLERT_INCORRECT);
         clearBuffer();
     }
 }
+
+// вывод результатов
 
 // функция вывода в зависимости от кол-ва корней уравнения
 void printFinalOutput(double* x1, double* x2,

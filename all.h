@@ -17,11 +17,11 @@ struct menuMode{
 };
 
 enum quadEqConst{
-    INFINITY_OF_ROOTS = -1,
-    NO_VALID_NUMBERS = -2,
-    TWO_ROOTS = 2,
-    ONE_ROOT = 1,
-    NO_ANY_ROOTS = 0
+    INFINITY_OF_ROOTS,
+    NO_VALID_ROOTS,
+    TWO_ROOTS,
+    ONE_ROOT,
+    NO_ANY_ROOTS
 };
 
 // прототипы структур для результатов решения
@@ -32,7 +32,7 @@ struct quadEqCase{
 
 const struct quadEqCase allOutputs[countOutputCases]{
     {INFINITY_OF_ROOTS, "Данное уравнение имеет бесконечное количество решений\n"},
-    {NO_VALID_NUMBERS, "Данное уравнение не имеет решений в действительных числах\n"},
+    {NO_VALID_ROOTS, "Данное уравнение не имеет решений в действительных числах\n"},
     {TWO_ROOTS, "Данное уравнение имеет два корня x1 = %lf, x2 = %lf\n"},
     {ONE_ROOT, "Данное уравнение имеет один корень x1 = %lf\n"},
     {NO_ANY_ROOTS, "Данное уравнения не имеет решений\n"}
@@ -47,7 +47,7 @@ void isCorrect(int* choose);
 
 // константы для меню
 enum menuConst{
-    RETURN_TO_TOP_MENU
+    RETURN_TO_TOP_MENU = -1
 };
 
 // функции режима

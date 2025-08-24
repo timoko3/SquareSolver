@@ -6,6 +6,7 @@
 
 quadEqConst solveQuadEqua(double a, double b, double c,
                   double* x1, double* x2){
+
     // линейный случай
     if(isZero(a)){
         return solveLinear(b, c, x1);
@@ -19,7 +20,7 @@ quadEqConst solveQuadEqua(double a, double b, double c,
         return ONE_ROOT;
     }
     else if(discriminant < 0){
-        return NO_VALID_NUMBERS;
+        return NO_VALID_ROOTS;
     }
     else /*if(discriminant > 0)*/{
         *x1 = (-b + sqrt(discriminant)) / (2 * a);

@@ -1,4 +1,4 @@
-//main_quad.c — Решение квадратного уравнения
+ //main_quad.c — Решение квадратного уравнения
 //assert
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,7 +15,7 @@ const char* EXIT_VARIANT = "Выйти из программы\n";
 int main(void){
 
     // инициализация структуры меню
-    menuMode allModes[TOP_BORDER]{
+    struct menuMode allModes[TOP_BORDER]{
         {userEquations, USER_EQUATIONS_VARIANT},
         {randomEquations, RANDOM_EQUATIONS_VARIANT},
         {trainerEquations, TRAINER_EQUATIONS_VARIANT},

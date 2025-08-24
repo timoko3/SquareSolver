@@ -19,7 +19,7 @@ int userEquations(){
 
     while(scanf("%lf %lf %lf", &a, &b, &c) != 3){
         int ch = '\0';
-        // Выход из программы
+        // Возвращение в "верхнее" меню
         if((ch = getchar()) == 'q'){
             clearBuffer();
             return RETURN_TO_TOP_MENU;
