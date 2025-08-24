@@ -1,5 +1,7 @@
 
 #include <stdio.h>
+#include <assert.h>
+#include <limits.h>
 #include "nRoots.h"
 #include "UI.h"
 #include "modes.h"
@@ -26,11 +28,11 @@ void showTopMenu(){
 }
 
 void get_mode(int* choose){
-// assert
-    while(!(scanf("%d", choose)) || *choose < BOTTOM_BORDER || *choose > MENU_TOP_BORDER){
+    while(!(scanf("%d", choose)) || *choose < MENU_BOTTOM_BORDER || *choose > MENU_TOP_BORDER){
         printf("%s", ALLERT_INCORRECT);
         clearBuffer();
     }
+    assert(!(*choose < MENU_BOTTOM_BORDER || *choose > MENU_TOP_BORDER));
 }
 
 void clearBuffer(){
@@ -56,7 +58,7 @@ void print_with_specifiers(nOutput curOutput,
     int ch = 0;
     while((/*int*/ ch = curOutput.toPrint[curSymbol]) != '\0'){
         // подразумевается, что встречается только % для обозначения спецификатора
-        if(ch == '%'){
+        if(ch == BEGIN_SPECIFIER){
             printf("%lf", *(roots[printedRoots++]));
             curSymbol += 3;
         }
@@ -81,5 +83,8 @@ int get_coefficents(double* a, double* b, double* c) {
             clearBuffer();
         }
     }
-    return SUCCESS_CHOOSE_MODE; // continue // coef read cool
+    assert(*a < __DBL_MAX__ && *a > __DBL_MIN__);
+    assert(*b < __DBL_MAX__ && *b > __DBL_MIN__);
+    assert(*c < __DBL_MAX__ && *c > __DBL_MIN__);
+    return SUCCESS_CHOOSE_MODE; 
 }

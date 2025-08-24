@@ -5,8 +5,9 @@ enum menuConst{
     RETURN_TO_TOP_MENU
 };
 
-const int BOTTOM_BORDER = 1;
+const int MENU_BOTTOM_BORDER = 1;
 const char QUIT = 'q';
+const char BEGIN_SPECIFIER = '%';
 
 const char* const WELCOME = "Добро пожаловать!\n";
 const char* const CHOOSE_MODE = "Выберите один из режимов:\n";
