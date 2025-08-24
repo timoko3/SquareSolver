@@ -4,24 +4,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#include "all.h"
-
-// для финального вывода
-const char* USER_EQUATIONS_VARIANT = "Решение введенных вами квадратных уравнений\t";
-const char* RANDOM_EQUATIONS_VARIANT = "Решение множества квадратных уравнений со случайными коэффицентами\n";
-const char* TRAINER_EQUATIONS_VARIANT = "Тренажер по решению квадртаных уравнений\t";
-const char* EXIT_VARIANT = "Выйти из программы\n";
+#include "main.h"
 
 int main(void){
-
-    // инициализация структуры меню
-    struct menuMode allModes[TOP_BORDER]{
-        {userEquations, USER_EQUATIONS_VARIANT},
-        {randomEquations, RANDOM_EQUATIONS_VARIANT},
-        {trainerEquations, TRAINER_EQUATIONS_VARIANT},
-        {NULL, EXIT_VARIANT}
-    };
-
     // главная часть от куда начинается выполнение всей программы
     bool flagOutOfMode = true;
     while(flagOutOfMode){
