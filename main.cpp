@@ -6,8 +6,9 @@
 #include "solve.h"
 #include "modes.h"
 #include "UI.h"
-
+#include "unitTests.h"
 int main(void){
+    RunTest();
     bool menuFLag = true;
     while(menuFLag){
         int choose = chooseMode();

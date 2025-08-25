@@ -83,8 +83,8 @@ int get_coefficents(double* a, double* b, double* c) {
             clearBuffer();
         }
     }
-    assert(*a < __DBL_MAX__ && *a > __DBL_MIN__);
-    assert(*b < __DBL_MAX__ && *b > __DBL_MIN__);
-    assert(*c < __DBL_MAX__ && *c > __DBL_MIN__);
+    assert(*a < __DBL_MAX__);
+    assert(*b < __DBL_MAX__);
+    assert(*c < __DBL_MAX__);
     return SUCCESS_CHOOSE_MODE; 
 }

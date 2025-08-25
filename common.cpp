@@ -9,3 +9,10 @@ bool isZero(double number){
     }
     return false;
 }
+
+bool isEqualDoubles(double num1, double num2){
+    if(fabs(num2 - num1) < INFELICITY){
+        return true;
+    }
+    return false;
+}

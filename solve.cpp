@@ -27,9 +27,10 @@ numRoots solveQuadEqua(double a, double b, double c,
         return NO_VALID_ROOTS;
     }
     else /*if(discriminant > 0)*/{
-        assert((*x1 - *x2) > INFELICITY);
+        assert(discriminant > 0);
         *x1 = (-b + sqrt(discriminant)) / (2 * a);
         *x2 = (-b - sqrt(discriminant)) / (2 * a);
+        assert((*x1 - *x2) > INFELICITY);
         return TWO_ROOTS;
     }
 }
