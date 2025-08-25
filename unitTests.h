@@ -1,12 +1,21 @@
 #include "nRoots.h"
 
+typedef int nPassedTests;
+
 struct funcSolveQuadEquationTest{
-    double a,b,c;
-    double x1ref,x2ref;
-    numRoots nRootsRef;
+    dataForSolvingTests forTest;
+    const numRoots nRootsRef;
+};
+
+
+
+enum fileParseResult{
+    PARSE_FAILURE,
+    PARSE_SUCCESS
 };
 
 const int NUMBER_OF_TESTS = 2;
+const char* const TESTING_FAILURE_PRINT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
 
 int RunTest();
-int OneTest(double a, double b, double c, double x1ref, double x2ref, numRoots nRootsRef);
+nPassedTests OneTest(funcSolveQuadEquationTest all_tests);

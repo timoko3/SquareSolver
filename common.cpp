@@ -4,10 +4,7 @@
 
 // проверка double на равенство нулю
 bool isZero(double number){
-    if(fabs(number) < INFELICITY){
-        return true;
-    }
-    return false;
+    return isEqualDoubles(number, 0);
 }
 
 bool isEqualDoubles(double num1, double num2){

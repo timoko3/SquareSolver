@@ -9,15 +9,16 @@ const int MENU_BOTTOM_BORDER = 1;
 const char QUIT = 'q';
 const char BEGIN_SPECIFIER = '%';
 
-const char* const WELCOME = "Добро пожаловать!\n";
-const char* const CHOOSE_MODE = "Выберите один из режимов:\n";
+const char* const WELCOME          = "Добро пожаловать!\n";
+const char* const CHOOSE_MODE      = "Выберите один из режимов:\n";
 const char* const ALLERT_INCORRECT = "Выбирайте из предложенных вариантов\n";
-const char* const INSTRUCTION = "Введите парметры приведенного квадратного уравнения ax^2+bx+c:(для возврата к выбору режима нажмите q)\n";
-const char* const HOW_TO_USE = "Необходимо вводить парметры в виде: a b c(a,b,c — действительные числа)\n";
+const char* const INSTRUCTION      = "Введите парметры приведенного квадратного уравнения ax^2+bx+c:(для возврата к выбору режима нажмите q)\n";
+const char* const HOW_TO_USE       = "Необходимо вводить парметры в виде: a b c(a,b,c — действительные числа)\n";
 
+// description
 struct nOutput{
     numRoots quantity;
-    const char* toPrint;
+    const char* toPrint; // описание
 };
 
 const int countOutputCases = 5;
@@ -36,9 +37,7 @@ const struct nOutput allOutputs[countOutputCases]{
     {NO_ANY_ROOTS, NO_ANY_ROOTS_TO_PTINT}
 };
 
-void printFinalOutput(double* x1, double* x2, numRoots curOutput);
-int get_coefficents(double* a, double* b, double* c);
-int chooseMode();
-
-//печать результатов теста
-void showTestsResult(int passed);
+void printFinalOutput(roots* roots, numRoots curOutput); // roots
+int get_coefficents(coefficents* userCoefficents); // ??? return
+int chooseMode(); // mode
+void showTestsResult(int passed); // + all

@@ -4,38 +4,39 @@
 #include "solve.h"
 #include "common.h"
 
-numRoots solveQuadEqua(double a, double b, double c,
-                  double* x1, double* x2){
-    assert(isfinite(a));
-    assert(isfinite(b));
-    assert(isfinite(c));
+numRoots solveQuadEqua(dataForSolving* userData){
+    assert(isfinite(userData->userModeCoefficents.a));
+    assert(isfinite(userData->userModeCoefficents.b));
+    assert(isfinite(userData->userModeCoefficents.c));
 
-    assert(x1 != NULL);
-    assert(x2 != NULL);
-    assert(x1 != x2);
-    if(isZero(a)){
-        return solveLinear(b, c, x1);
+    //assert(userData->userModeRoots.x1 != NULL);
+    //assert(userData->userModeRoots.x2 != NULL);
+    //assert(userData->userModeRoots.x1 != userData->userModeRoots.x2);
+
+    if(isZero(userData->userModeCoefficents.a)){
+        return solveLinear(userData->userModeCoefficents.b, userData->userModeCoefficents.c, &userData->userModeRoots.x1);
     }
 
-    double discriminant = b * b - 4 * a * c; 
+    double discriminant = userData->userModeCoefficents.b * userData->userModeCoefficents.b - 4 * userData->userModeCoefficents.a * userData->userModeCoefficents.c; 
 
     if(isZero(discriminant)){
-        *x1 = (-b) / (2 * a);
+        userData->userModeRoots.x1 = (-userData->userModeCoefficents.b) / (2 * userData->userModeCoefficents.a);
         return ONE_ROOT;
     }
     else if(discriminant < 0){
         return NO_VALID_ROOTS;
     }
-    else /*if(discriminant > 0)*/{
+    else /* if(discriminant > 0) */{
         assert(discriminant > 0);
-        *x1 = (-b + sqrt(discriminant)) / (2 * a);
-        *x2 = (-b - sqrt(discriminant)) / (2 * a);
-        assert((*x1 - *x2) > INFELICITY);
+        userData->userModeRoots.x1 = (-userData->userModeCoefficents.b + sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
+        userData->userModeRoots.x2 = (-userData->userModeCoefficents.b - sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
+        assert((userData->userModeRoots.x1 - userData->userModeRoots.x2) > INFELICITY); //////////////////////////////////////////////////////////////////////////////////////////////////////
         return TWO_ROOTS;
     }
 }
 
 numRoots solveLinear(double b, double c, double* x){
+    // assert
     if(isZero(b)){
         if(isZero(c)){
             return INFINITY_OF_ROOTS;
