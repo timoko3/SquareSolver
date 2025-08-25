@@ -2,8 +2,8 @@
 
 typedef int nPassedTests;
 
-struct funcSolveQuadEquationTest{
-    dataForSolvingTests forTest;
+struct testsData{
+    equationData_t equationData;
     const numRoots nRootsRef;
 };
 
@@ -17,4 +17,4 @@ const char* const TESTS_OPEN_FAILURE_PRINT = "Не удалось открыть
 const char* const TEST_FAILURE_ALLERT = "Тест номер %d провален\n";
 
 int RunTest();
-nPassedTests OneTest(funcSolveQuadEquationTest all_tests);
+nPassedTests OneTest(testsData all_tests);

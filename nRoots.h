@@ -9,32 +9,20 @@ enum numRoots{
     NO_ANY_ROOTS
 };
 
-struct coefficents 
-{
+struct coefs_t {
     double a;
     double b;
     double c;
 };
 
-struct roots
-{
+struct roots_t {
     double x1;
     double x2;
 };
 
-struct dataForSolving {
-    coefficents userModeCoefficents;
-    roots userModeRoots;
-};
-
-struct refRoots {
-    double x1ref;
-    double x2ref;
-};
-
-struct dataForSolvingTests {
-    coefficents testsCoefficents;
-    refRoots testsRoots;
+struct equationData_t {
+    coefs_t coefs;
+    roots_t roots;
 };
 
 #endif /* N_ROOTS_H */

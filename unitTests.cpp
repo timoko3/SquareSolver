@@ -3,34 +3,34 @@
 #include "unitTests.h"
 #include <stdio.h>
 
-
-
 int RunTest(){
     int nPassed = 0;
 //    parseTestsFromFile();
-    // инструкция к тесту OneTest(<coef a>, <coef b>, <coef c>, <max root>, <min root>, <numRoot>) // swap
-    funcSolveQuadEquationTest all_tests[NUMBER_OF_TESTS] = {
-        {{{.a = 1, .b = -5, .c = 6},  {.x1ref = 3, .x2ref = 2}},  .nRootsRef = TWO_ROOTS},
-        {{{.a = 1, .b = 0,  .c = -4}, {.x1ref = 2, .x2ref = -2}}, .nRootsRef = TWO_ROOTS},
+    // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
+    testsData all_tests[NUMBER_OF_TESTS] = {
+        {{{.a = 1, .b = -5, .c = 6},  {.x1 = 3, .x2 = 2}},  .nRootsRef = TWO_ROOTS},
+        {{{.a = 1, .b = 0,  .c = -4}, {.x1 = 2, .x2 = -2}}, .nRootsRef = TWO_ROOTS},
     };
+
     for(int test = 0; test < NUMBER_OF_TESTS; test++){
         nPassed += OneTest(all_tests[test]);
     }
+    
     return nPassed;
 }
 
-nPassedTests OneTest(funcSolveQuadEquationTest curTest){
+nPassedTests OneTest(testsData curTest){
     static int nTest = 0;
 
-    dataForSolving temporary = {};
-    temporary.userModeCoefficents = curTest.forTest.testsCoefficents;
-    temporary.userModeRoots.x1 = curTest.forTest.testsRoots.x1ref;
-    temporary.userModeRoots.x1 = curTest.forTest.testsRoots.x2ref;
+    equationData_t reference = {};
+    reference.coefs = curTest.equationData.coefs;
+    reference.roots.x1 = curTest.equationData.roots.x1;
+    reference.roots.x1 = curTest.equationData.roots.x2;
 
-    numRoots nRoots = solveQuadEqua(&temporary);
+    numRoots nRoots = solveQuadEqua(&reference);
     nTest++;
-    if(!(isEqualDoubles(temporary.userModeRoots.x1, curTest.forTest.testsRoots.x1ref) && 
-         isEqualDoubles(temporary.userModeRoots.x2, curTest.forTest.testsRoots.x2ref) && 
+    if(!(isEqualDoubles(reference.roots.x1, curTest.equationData.roots.x1) && 
+         isEqualDoubles(reference.roots.x2, curTest.equationData.roots.x2) && 
          isEqualDoubles(nRoots, curTest.nRootsRef))){
         printf(TEST_FAILURE_ALLERT, nTest);
         return 0;

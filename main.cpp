@@ -3,32 +3,24 @@
 #include <math.h>
 
 #include "solve.h"
-#include "modes.h"
 #include "UI.h"
 #include "unitTests.h"
 
-
+// poriadoc
 
 int main(void){
-
     int passedTests = RunTest();
     showTestsResult(passedTests, NUMBER_OF_TESTS);
 
-    bool menuFLag = true;
-    while(menuFLag){
-        int choose = chooseMode();
-        bool modeFlag = true;
+    while(true){
+        menu_mode_t mode = chooseMode();
 
-        if(choose == MENU_TOP_BORDER){
-            modeFlag = false;
-            menuFLag = false;
+        if(mode == EXIT){
+            break;
         }
 
-        while(modeFlag){
-            if(((allModes[choose].mode)()) == RETURN_TO_TOP_MENU){
-                modeFlag = false;
-            }
-        }
+        (allModes[mode].function)();
     }
+
     return 0;
 }

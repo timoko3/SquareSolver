@@ -4,40 +4,44 @@
 #include "solve.h"
 #include "common.h"
 
-numRoots solveQuadEqua(dataForSolving* userData){
-    assert(isfinite(userData->userModeCoefficents.a));
-    assert(isfinite(userData->userModeCoefficents.b));
-    assert(isfinite(userData->userModeCoefficents.c));
+numRoots solveQuadEqua(equationData_t* data){ // user?
+    // assert
+    assert(isfinite(data->coefs.a));
+    assert(isfinite(data->coefs.b));
+    assert(isfinite(data->coefs.c));
 
-    assert(&userData->userModeRoots.x1 != NULL);
-    assert(&userData->userModeRoots.x2 != NULL);
+    assert(&data->roots.x1 != NULL);
+    assert(&data->roots.x2 != NULL);
     
-    if(isZero(userData->userModeCoefficents.a)){
-        return solveLinear(userData->userModeCoefficents.b, userData->userModeCoefficents.c, &userData->userModeRoots.x1);
+    if(isZero(data->coefs.a)){
+        return solveLinear(data->coefs.b, data->coefs.c, &data->roots.x1);
     }
 
-    double discriminant = userData->userModeCoefficents.b * userData->userModeCoefficents.b - 4 * userData->userModeCoefficents.a * userData->userModeCoefficents.c; 
+    double discriminant = data->coefs.b * data->coefs.b - 4 * data->coefs.a * data->coefs.c; 
 
     if(isZero(discriminant)){
-        userData->userModeRoots.x1 = (-userData->userModeCoefficents.b) / (2 * userData->userModeCoefficents.a);
+        data->roots.x1 = (-data->coefs.b) / (2 * data->coefs.a);
         return ONE_ROOT;
     }
     else if(discriminant < 0){
         return NO_VALID_ROOTS;
     }
-    else /* if(discriminant > 0) */{
-        
-        userData->userModeRoots.x1 = (-userData->userModeCoefficents.b + sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
-        userData->userModeRoots.x2 = (-userData->userModeCoefficents.b - sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
-        assert(!isEqualDoubles(userData->userModeRoots.x1, userData->userModeRoots.x2));
+    else /* if(discriminant > 0) */{   
+        data->roots.x1 = (-data->coefs.b + sqrt(discriminant)) / (2 * data->coefs.a);
+        data->roots.x2 = (-data->coefs.b - sqrt(discriminant)) / (2 * data->coefs.a);
+
+        assert(!isEqualDoubles(data->roots.x1, data->roots.x2));
+
         return TWO_ROOTS;
     }
+
 }
 
 numRoots solveLinear(double b, double c, double* x){
     assert(isfinite(b));
     assert(isfinite(c));
     assert(x != NULL);
+
     if(isZero(b)){
         if(isZero(c)){
             return INFINITY_OF_ROOTS;
@@ -47,7 +51,8 @@ numRoots solveLinear(double b, double c, double* x){
         }
     }
     else{
-        *x = c;
+        *x = -c / b;
         return ONE_ROOT;
     }
+    
 }
