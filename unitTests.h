@@ -1,10 +1,12 @@
 #include "nRoots.h"
 
+const int N_OF_TESTS = 4;
+
 typedef int nPassedTests;
 
-struct testsData{
+struct testsData_t{
     equationData_t equationData;
-    const numRoots nRootsRef;
+    numRoots nRootsRef;
 };
 
 enum fileParseResult{
@@ -12,9 +14,9 @@ enum fileParseResult{
     PARSE_SUCCESS
 };
 
-const int NUMBER_OF_TESTS = 2;
-const char* const TESTS_OPEN_FAILURE_PRINT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
+const char* const TESTS_OPEN_FILE_FAILURE_ALLERT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
 const char* const TEST_FAILURE_ALLERT = "Тест номер %d провален\n";
 
+bool parseTestsFromFile(testsData_t* testsData);
 int RunTest();
-nPassedTests OneTest(testsData all_tests);
+nPassedTests OneTest(testsData_t all_tests);

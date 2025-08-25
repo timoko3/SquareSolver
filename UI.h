@@ -25,7 +25,7 @@ struct rootDescription{
     const char* const stringDescription;
 };
 
-const struct rootDescription allRootDescriptions[nRootsCases]{
+const struct rootDescription allRootsDescription[nRootsCases]{
     {INFINITY_OF_ROOTS, INFINITY_OF_ROOTS_TO_PTINT},
     {NO_VALID_ROOTS,    NO_VALID_ROOTS_TO_PTINT},
     {TWO_ROOTS,         TWO_ROOTS_TO_PTINT},

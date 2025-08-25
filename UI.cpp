@@ -47,8 +47,8 @@ bool get_coefficents(coefs_t* coefs) {
 void printFinalOutput(roots_t* roots,
                       numRoots nRoots){
     for(int i = 0; i < nRootsCases; i++){
-        if(allRootDescriptions[i].quantity == nRoots){
-            printf(allRootDescriptions[i].stringDescription, roots->x1, roots->x2);
+        if(allRootsDescription[i].quantity == nRoots){
+            printf(allRootsDescription[i].stringDescription, roots->x1, roots->x2);
         }
     }
 }

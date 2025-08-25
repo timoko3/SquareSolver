@@ -1,12 +1,14 @@
 #ifndef N_ROOTS_H
 #define N_ROOTS_H
 
+#include <math.h>
+
 enum numRoots{
-    INFINITY_OF_ROOTS,
-    NO_VALID_ROOTS,
-    TWO_ROOTS,
-    ONE_ROOT,
-    NO_ANY_ROOTS
+    INFINITY_OF_ROOTS = -1,
+    NO_VALID_ROOTS = 0,
+    TWO_ROOTS = 2,
+    ONE_ROOT = 1,
+    NO_ANY_ROOTS = 0
 };
 
 struct coefs_t {
