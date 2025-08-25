@@ -8,7 +8,8 @@
 #include "UI.h"
 #include "unitTests.h"
 int main(void){
-    RunTest();
+    int passed = RunTest();
+    showTestsResult(passed);
     bool menuFLag = true;
     while(menuFLag){
         int choose = chooseMode();

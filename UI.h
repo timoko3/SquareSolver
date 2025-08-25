@@ -39,3 +39,6 @@ const struct nOutput allOutputs[countOutputCases]{
 void printFinalOutput(double* x1, double* x2, numRoots curOutput);
 int get_coefficents(double* a, double* b, double* c);
 int chooseMode();
+
+//печать результатов теста
+void showTestsResult(int passed);

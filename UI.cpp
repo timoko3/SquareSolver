@@ -5,6 +5,9 @@
 #include "nRoots.h"
 #include "UI.h"
 #include "modes.h"
+#include "unitTests.h"
+
+
 
 void showTopMenu();
 void get_mode(int* choose);
@@ -19,6 +22,11 @@ mode chooseMode(){
     get_mode(&choose);
     return choose - 1;
 }
+
+void showTestsResult(int passed){
+    printf("Пройдено %d/%d тестов\n", passed, NUMBER_OF_TESTS);
+}
+
 void showTopMenu(){
     printf("%s", WELCOME);
     printf("%s", CHOOSE_MODE);
@@ -88,3 +96,4 @@ int get_coefficents(double* a, double* b, double* c) {
     assert(*c < __DBL_MAX__);
     return SUCCESS_CHOOSE_MODE; 
 }
+

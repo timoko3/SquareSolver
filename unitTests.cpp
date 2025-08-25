@@ -5,8 +5,15 @@
 
 int RunTest(){
     int passed = 0;
-    passed += OneTest(1,-5,6,3,2,TWO_ROOTS); // инструкция к тесту (<coef a>, <coef b>, <coef c>, <max root>, <min root>, <numRoot>)
-    passed += OneTest(1,0,-4,2,-2,TWO_ROOTS);
+    // инструкция к тесту OneTest(<coef a>, <coef b>, <coef c>, <max root>, <min root>, <numRoot>)
+    funcSolveQuadEquationTest all_tests[NUMBER_OF_TESTS] = 
+    {
+        {.a = 1, .b = -5, .c = 6, .x1ref = 3, .x2ref = 2, .nRootsRef = TWO_ROOTS},
+        {.a = 1, .b = 0, .c = -4, .x1ref = 2, .x2ref = -2, .nRootsRef = TWO_ROOTS},
+    };
+    for(int test = 0; test < NUMBER_OF_TESTS; test++){
+        passed += OneTest(all_tests[test].a, all_tests[test].b, all_tests[test].c, all_tests[test].x1ref, all_tests[test].x2ref, all_tests[test].nRootsRef);
+    }
     return passed;
 }
 int OneTest(double a, double b, double c, double x1ref, double x2ref, numRoots nRootsRef){
