@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <limits.h>
+#include <math.h>
 #include "nRoots.h"
 #include "UI.h"
 #include "modes.h"
@@ -11,18 +12,16 @@
 void showTopMenu();
 mode get_mode();
 void clearBuffer();
-void print_with_specifiers(nOutput curOutput, roots* roots);
-
-typedef int mode;
+void print_with_specifiers(nDescription curOutput, roots* roots);
 
 mode chooseMode(){
     showTopMenu();
     return get_mode();
 }
 
-const char*const STR = "Пройдено %d/%d тестов\n";
-void showTestsResult(int passed){
-    printf(STR, passed, NUMBER_OF_TESTS);
+const char*const TO_PRINT_TESTS_RESULT = "Пройдено %d/%d тестов\n";
+void showTestsResult(int nPassed,const int nAllTests){
+    printf(TO_PRINT_TESTS_RESULT, nPassed, nAllTests);
 }
 
 void showTopMenu(){
@@ -43,19 +42,19 @@ mode get_mode(){
     return choose - 1;
 }
 
-void printFinalOutput(roots* roots,
+void printFinalOutput(roots* userRoots,
                       numRoots curOutput){
-    for(int curOutputStruct = 0; curOutputStruct < countOutputCases; curOutputStruct++){
+    for(int curOutputStruct = 0; curOutputStruct < nRootsCases; curOutputStruct++){
         if(allOutputs[curOutputStruct].quantity == curOutput){
-            print_with_specifiers(allOutputs[curOutputStruct], roots);
+            print_with_specifiers(allOutputs[curOutputStruct], userRoots);
         }
     }
 }
 
-void print_with_specifiers(nOutput curOutput,
-                           roots* roots){
+void print_with_specifiers(nDescription curOutput,
+                           roots* userRoots){
     int curSymbol = 0;
-    double* rootsArray[] = {&roots->x1, &roots->x2}; // массив указателей на корни для печати
+    double* rootsArray[] = {&userRoots->x1, &userRoots->x2};
     int printedRoots = 0;
     int ch = 0;
     while((/*int*/ ch = curOutput.toPrint[curSymbol]) != '\0'){
@@ -71,8 +70,8 @@ void print_with_specifiers(nOutput curOutput,
     }
 }
 
-int get_coefficents(coefficents* userCoefficents) {
-    //assert
+successStatus get_coefficents(coefficents* userCoefficents) {
+    assert(userCoefficents != NULL);
     printf("%s", INSTRUCTION);
     while(scanf("%lf %lf %lf", &(userCoefficents->a), &(userCoefficents->b), &(userCoefficents->c)) != 3){
         int symbol = '\0';
@@ -86,9 +85,10 @@ int get_coefficents(coefficents* userCoefficents) {
             clearBuffer();
         }
     }
-    //assert(*a <= __DBL_MAX__); // isnan isinf isfinity
-    //assert(*b <= __DBL_MAX__);
-    //assert(*c <= __DBL_MAX__);
+    assert(isfinite(userCoefficents->a));
+    assert(isfinite(userCoefficents->b));  
+    assert(isfinite(userCoefficents->c));          
+    
     return SUCCESS_CHOOSE_MODE; 
 }
 

@@ -1,5 +1,7 @@
 #include "nRoots.h"
 
+typedef int mode;
+
 enum menuConst{
     SUCCESS_CHOOSE_MODE,
     RETURN_TO_TOP_MENU
@@ -15,21 +17,20 @@ const char* const ALLERT_INCORRECT = "Выбирайте из предложен
 const char* const INSTRUCTION      = "Введите парметры приведенного квадратного уравнения ax^2+bx+c:(для возврата к выбору режима нажмите q)\n";
 const char* const HOW_TO_USE       = "Необходимо вводить парметры в виде: a b c(a,b,c — действительные числа)\n";
 
-// description
-struct nOutput{
+struct nDescription{
     numRoots quantity;
-    const char* toPrint; // описание
+    const char* toPrint;
 };
 
-const int countOutputCases = 5;
+const int nRootsCases = 5;
 
 const char* const INFINITY_OF_ROOTS_TO_PTINT = "Данное уравнение имеет бесконечное количество решений\n";
-const char* const NO_VALID_ROOTS_TO_PTINT = "Данное уравнение не имеет решений в действительных числах\n";
-const char* const TWO_ROOTS_TO_PTINT = "Данное уравнение имеет два корня x1 = %lf, x2 = %lf\n";
-const char* const ONE_ROOT_TO_PTINT = "Данное уравнение имеет один корень x1 = %lf\n";
-const char* const NO_ANY_ROOTS_TO_PTINT = "Данное уравнения не имеет решений\n"; 
+const char* const NO_VALID_ROOTS_TO_PTINT    = "Данное уравнение не имеет решений в действительных числах\n";
+const char* const TWO_ROOTS_TO_PTINT         = "Данное уравнение имеет два корня x1 = %lf, x2 = %lf\n";
+const char* const ONE_ROOT_TO_PTINT          = "Данное уравнение имеет один корень x1 = %lf\n";
+const char* const NO_ANY_ROOTS_TO_PTINT      = "Данное уравнения не имеет решений\n"; 
 
-const struct nOutput allOutputs[countOutputCases]{
+const struct nDescription allOutputs[nRootsCases]{
     {INFINITY_OF_ROOTS, INFINITY_OF_ROOTS_TO_PTINT},
     {NO_VALID_ROOTS, NO_VALID_ROOTS_TO_PTINT},
     {TWO_ROOTS, TWO_ROOTS_TO_PTINT },
@@ -37,7 +38,9 @@ const struct nOutput allOutputs[countOutputCases]{
     {NO_ANY_ROOTS, NO_ANY_ROOTS_TO_PTINT}
 };
 
-void printFinalOutput(roots* roots, numRoots curOutput); // roots
-int get_coefficents(coefficents* userCoefficents); // ??? return
-int chooseMode(); // mode
-void showTestsResult(int passed); // + all
+typedef int successStatus;
+
+void printFinalOutput(roots* userRoots, numRoots curOutput); // roots
+successStatus get_coefficents(coefficents* userCoefficents);
+mode chooseMode();
+void showTestsResult(int nPassed, int nAllTests);

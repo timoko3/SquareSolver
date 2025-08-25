@@ -7,10 +7,12 @@
 #include "UI.h"
 #include "unitTests.h"
 
+
+
 int main(void){
 
-    int passed = RunTest();
-    showTestsResult(passed);
+    int passedTests = RunTest();
+    showTestsResult(passedTests, NUMBER_OF_TESTS);
 
     bool menuFLag = true;
     while(menuFLag){
@@ -21,7 +23,7 @@ int main(void){
             modeFlag = false;
             menuFLag = false;
         }
-        
+
         while(modeFlag){
             if(((allModes[choose].mode)()) == RETURN_TO_TOP_MENU){
                 modeFlag = false;

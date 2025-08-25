@@ -9,10 +9,9 @@ numRoots solveQuadEqua(dataForSolving* userData){
     assert(isfinite(userData->userModeCoefficents.b));
     assert(isfinite(userData->userModeCoefficents.c));
 
-    //assert(userData->userModeRoots.x1 != NULL);
-    //assert(userData->userModeRoots.x2 != NULL);
-    //assert(userData->userModeRoots.x1 != userData->userModeRoots.x2);
-
+    assert(&userData->userModeRoots.x1 != NULL);
+    assert(&userData->userModeRoots.x2 != NULL);
+    
     if(isZero(userData->userModeCoefficents.a)){
         return solveLinear(userData->userModeCoefficents.b, userData->userModeCoefficents.c, &userData->userModeRoots.x1);
     }
@@ -27,16 +26,18 @@ numRoots solveQuadEqua(dataForSolving* userData){
         return NO_VALID_ROOTS;
     }
     else /* if(discriminant > 0) */{
-        assert(discriminant > 0);
+        
         userData->userModeRoots.x1 = (-userData->userModeCoefficents.b + sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
         userData->userModeRoots.x2 = (-userData->userModeCoefficents.b - sqrt(discriminant)) / (2 * userData->userModeCoefficents.a);
-        assert((userData->userModeRoots.x1 - userData->userModeRoots.x2) > INFELICITY); //////////////////////////////////////////////////////////////////////////////////////////////////////
+        assert(!isEqualDoubles(userData->userModeRoots.x1, userData->userModeRoots.x2));
         return TWO_ROOTS;
     }
 }
 
 numRoots solveLinear(double b, double c, double* x){
-    // assert
+    assert(isfinite(b));
+    assert(isfinite(c));
+    assert(x != NULL);
     if(isZero(b)){
         if(isZero(c)){
             return INFINITY_OF_ROOTS;
