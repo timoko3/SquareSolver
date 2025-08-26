@@ -16,8 +16,8 @@ const int nRootsCases = 5;
 
 const char* const INFINITY_OF_ROOTS_TO_PTINT = "Данное уравнение имеет бесконечное количество решений\n";
 const char* const NO_VALID_ROOTS_TO_PTINT    = "Данное уравнение не имеет решений в действительных числах\n";
-const char* const TWO_ROOTS_TO_PTINT         = "Данное уравнение имеет два корня x1 = %lf, x2 = %lf\n";
-const char* const ONE_ROOT_TO_PTINT          = "Данное уравнение имеет один корень x1 = %lf\n";
+const char* const TWO_ROOTS_TO_PTINT         = "Данное уравнение имеет два корня x1 = %lg, x2 = %lg\n";
+const char* const ONE_ROOT_TO_PTINT          = "Данное уравнение имеет один корень x1 = %lg\n";
 const char* const NO_ANY_ROOTS_TO_PTINT      = "Данное уравнения не имеет решений\n"; 
 
 struct rootDescription{

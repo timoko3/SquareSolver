@@ -1,6 +1,6 @@
 #include "nRoots.h"
 
-const int N_OF_TESTS = 4;
+const int N_OF_TESTS = 3;
 
 typedef int nPassedTests;
 
@@ -18,5 +18,5 @@ const char* const TESTS_OPEN_FILE_FAILURE_ALLERT = "Не удалось откр
 const char* const TEST_FAILURE_ALLERT = "Тест номер %d провален\n";
 
 bool parseTestsFromFile(testsData_t* testsData);
-int RunTest();
+nPassedTests RunTest();
 nPassedTests OneTest(testsData_t all_tests);

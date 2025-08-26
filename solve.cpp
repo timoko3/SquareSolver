@@ -37,13 +37,13 @@ numRoots solveQuadEqua(equationData_t* data){ // user?
 
 }
 
-numRoots solveLinear(double b, double c, double* x){
+numRoots solveLinear(double k, double b, double* x){
+    assert(isfinite(k));
     assert(isfinite(b));
-    assert(isfinite(c));
     assert(x != NULL);
 
-    if(isZero(b)){
-        if(isZero(c)){
+    if(isZero(k)){
+        if(isZero(b)){
             return INFINITY_OF_ROOTS;
         }
         else{
@@ -51,7 +51,7 @@ numRoots solveLinear(double b, double c, double* x){
         }
     }
     else{
-        *x = -c / b;
+        *x = -b / k;
         return ONE_ROOT;
     }
     

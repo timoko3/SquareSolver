@@ -9,8 +9,7 @@
 // poriadoc
 
 int main(void){
-    int passedTests = RunTest();
-    showTestsResult(passedTests, N_OF_TESTS);
+    showTestsResult(RunTest(), N_OF_TESTS);
 
     while(true){
         menu_mode_t mode = chooseMode();

@@ -14,9 +14,9 @@ struct menuMode{
     const char* stringDescription;
 };
 
-const char* const USER_EQUATIONS_VARIANT    = "Решение введенных вами квадратных уравнений\t";
+const char* const USER_EQUATIONS_VARIANT    = "Решение введенных вами квадратных уравнений\n";
 const char* const RANDOM_EQUATIONS_VARIANT  = "Решение множества квадратных уравнений со случайными коэффицентами\n";
-const char* const TRAINER_EQUATIONS_VARIANT = "Тренажер по решению квадртаных уравнений\t";
+const char* const TRAINER_EQUATIONS_VARIANT = "Тренажер по решению квадртаных уравнений\n";
 const char* const EXIT_VARIANT              = "Выйти из программы\n";
 
 void userEquations();

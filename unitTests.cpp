@@ -3,7 +3,7 @@
 #include "unitTests.h"
 #include <stdio.h>
 
-int RunTest(){
+nPassedTests RunTest(){
     int nPassed = 0;
     
     // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
