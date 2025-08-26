@@ -6,12 +6,12 @@
 #include "consoleColors.h"
 
 const char* const TO_PRINT_TESTS_RESULT_SUCCESS = SET_STYLE_BOLD_FONT_GREEN "Пройдено %d/%d тестов\n" RESET;
-const char* const TO_PRINT_TESTS_RESULT_FAILURE = SET_STYLE_BLINKING_FONT_RED "Пройдено %d/%d тестов\n" RESET;
+const char* const TO_PRINT_TESTS_RESULT_FAILURE = SET_STYLE_BOLD_FONT_RED "Пройдено %d/%d тестов\n" RESET;
 
-const char* const WELCOME          = SET_STYLE_ITALICS_FONT_PURPLE "Добро пожаловать!\n" RESET;
+const char* const WELCOME          = SET_STYLE_BOLD_FONT_TURQUOISE "Добро пожаловать!\n" RESET;
 const char* const CHOOSE_MODE      = "Выберите один из режимов:\n";
 const char* const ALLERT_INCORRECT = "Выбирайте из предложенных вариантов\n";
-const char* const INSTRUCTION      = "Введите парметры приведенного квадратного уравнения" SET_STYLE_ITALICS_FONT_YELLOW " ax^2+bx+c" RESET ":(для возврата к выбору режима нажмите q)\n";
+const char* const INSTRUCTION      = "Введите парметры приведенного квадратного уравнения" SET_STYLE_ITALICS_FONT_YELLOW " ax^2+bx+c" RESET ":\n(для возврата к выбору режима нажмите q)\n";
 const char* const HOW_TO_USE       = "Необходимо вводить парметры в виде:" SET_STYLE_ITALICS_FONT_YELLOW "a b c" RESET "(a,b,c — действительные числа)\n";
 
 const int nRootsCases = 5;

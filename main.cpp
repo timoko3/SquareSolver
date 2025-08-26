@@ -8,6 +8,7 @@
 
 int main(void){
     printf("%s", WELCOME);
+    
     int nAllTests = 0;
     int nPassed = RunTest(&nAllTests);
     showTestsResult(nPassed, nAllTests);

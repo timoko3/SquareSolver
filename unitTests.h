@@ -16,7 +16,8 @@ enum fileParseResult{
 };
 
 const char* const TESTS_OPEN_FILE_FAILURE_ALLERT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
-const char* const TEST_FAILURE_ALLERT = SET_STYLE_BLINKING_FONT_RED "Тест номер %d кооэффиценты %lg, %lg, %lg провален т.к. корни должны быть %lg и %lg, a не %lg и %lg\n" RESET;
+const char* const TEST_FAILURE_ALLERT = SET_STYLE_BLINKING_FONT_RED "Тест номер %d с кооэффицентами %lg, %lg, %lg провален!!!\n"
+                                                                    "Корни должны быть %lg и %lg, a не %lg и %lg\n" RESET;
 
 const char* const INF = "inf";
 const char* const ZERO = "0";
@@ -24,9 +25,3 @@ const char* const ONE = "1";
 const char* const TWO = "2";
 
 nPassedTests RunTest(int* nAllTests);
-bool parseTestsFromFile(FILE* fileWithTests, testsData_t* curTest, int* nAllTests);
-bool openFile(FILE** filewithTests);
-bool getTestToFile(FILE* fileWithTests, testsData_t* curTest);
-void createReferenceTest(equationData_t* reference, testsData_t* curTest);
-bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest);
-nPassedTests OneTest(testsData_t all_tests);

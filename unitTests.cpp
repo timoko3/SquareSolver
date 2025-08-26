@@ -7,20 +7,25 @@
 #include <string.h>
 #include <assert.h>
 
+static bool openFile(FILE** filewithTests);
+static bool getTestToFile(FILE* fileWithTests, testsData_t* curTest);
+static void createReferenceTest(equationData_t* reference, testsData_t* curTest);
+static bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest);
+static nPassedTests OneTest(testsData_t all_tests);
+
 nPassedTests RunTest(int* nAllTests){
     assert(nAllTests);
-    // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
+    // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <min root>, <max root>, <numRoot>)
     FILE* fileWithTests = NULL;
 
     if(openFile(&fileWithTests) == PARSE_FAILURE) return PARSE_FAILURE; // OpenFile // Roots roots
 
     int nPassed = 0;
-    
     while(true){
-        
         testsData_t curTest = {};
         
-        if(!parseTestsFromFile(fileWithTests, &curTest, nAllTests))break;
+        if (getTestToFile(fileWithTests, &curTest) == PARSE_FAILURE) break;
+        (*nAllTests)++;
 
         nPassed += OneTest(curTest);
     }
@@ -30,16 +35,7 @@ nPassedTests RunTest(int* nAllTests){
     return nPassed;
 }
 
- bool parseTestsFromFile(FILE* fileWithTests, testsData_t* curTest, int* nAllTests){
-    assert(fileWithTests != NULL);
-
-    if(getTestToFile(fileWithTests, curTest) == PARSE_FAILURE) return PARSE_FAILURE;
-    (*nAllTests)++;
-
-    return PARSE_SUCCESS;
-}
-
-bool openFile(FILE** fileWithTests){
+static bool openFile(FILE** fileWithTests){
     assert(fileWithTests);
 
     if((*fileWithTests = fopen("test_quad.txt", "r")) == NULL){
@@ -49,7 +45,7 @@ bool openFile(FILE** fileWithTests){
     return PARSE_SUCCESS;
 }
 
-bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){ 
+static bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){ 
     assert(fileWithTests);
     assert(curTest);
 
@@ -80,7 +76,7 @@ bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){
 
 }
 
-nPassedTests OneTest(testsData_t curTest){
+static nPassedTests OneTest(testsData_t curTest){
     static int nTest = 0;
     nTest++;
 
@@ -92,14 +88,14 @@ nPassedTests OneTest(testsData_t curTest){
     return 1;
 }
 
-void createReferenceTest(equationData_t* reference, testsData_t* curTest){
+static void createReferenceTest(equationData_t* reference, testsData_t* curTest){
     assert(reference);
     assert(curTest);
 
     reference->coefs = curTest->equationData.coefs;
 }
 
-bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest){
+static bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest){
     assert(curTest);
     assert(reference);
 

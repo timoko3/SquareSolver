@@ -3,7 +3,7 @@
 
 #include "nRoots.h"
 
-numRoots solveLinear(double b, double c, double* x); // kx+b // ax+b
+numRoots solveLinear(double k, double b, double* x); 
 numRoots solveQuadEqua(equationData_t* data);
 
 #endif

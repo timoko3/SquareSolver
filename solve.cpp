@@ -4,15 +4,15 @@
 #include "solve.h"
 #include "common.h"
 
-numRoots solveQuadEqua(equationData_t* data){ // user?
+numRoots solveQuadEqua(equationData_t* data){ 
     assert(data);
 
     assert(isfinite(data->coefs.a));
     assert(isfinite(data->coefs.b));
     assert(isfinite(data->coefs.c));
 
-    assert(&data->roots.x1 != NULL);
-    assert(&data->roots.x2 != NULL);
+    assert(&data->roots.x1);
+    assert(&data->roots.x2);
     
     if(isZero(data->coefs.a)){
         return solveLinear(data->coefs.b, data->coefs.c, &data->roots.x1);
