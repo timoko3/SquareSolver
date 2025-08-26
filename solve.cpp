@@ -5,7 +5,8 @@
 #include "common.h"
 
 numRoots solveQuadEqua(equationData_t* data){ // user?
-    // assert
+    assert(data);
+
     assert(isfinite(data->coefs.a));
     assert(isfinite(data->coefs.b));
     assert(isfinite(data->coefs.c));
@@ -29,8 +30,10 @@ numRoots solveQuadEqua(equationData_t* data){ // user?
     else /* if(discriminant > 0) */{   
         data->roots.x1 = (-data->coefs.b - sqrt(discriminant)) / (2 * data->coefs.a);
         data->roots.x2 = (-data->coefs.b + sqrt(discriminant)) / (2 * data->coefs.a);
-        
 
+        fixInfelicity(&data->roots.x1);
+        fixInfelicity(&data->roots.x2);
+        
         assert(!isEqualDoubles(data->roots.x1, data->roots.x2));
 
         return TWO_ROOTS;
@@ -39,9 +42,10 @@ numRoots solveQuadEqua(equationData_t* data){ // user?
 }
 
 numRoots solveLinear(double k, double b, double* x){
+    assert(x);
+
     assert(isfinite(k));
     assert(isfinite(b));
-    assert(x != NULL);
 
     if(isZero(k)){
         if(isZero(b)){
@@ -53,6 +57,7 @@ numRoots solveLinear(double k, double b, double* x){
     }
     else{
         *x = -b / k;
+        fixInfelicity(x);
         return ONE_ROOT;
     }
     

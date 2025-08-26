@@ -1,4 +1,6 @@
 #include "nRoots.h"
+#include "consoleColors.h"
+
 #include <stdio.h>
 
 typedef int nPassedTests;
@@ -14,7 +16,7 @@ enum fileParseResult{
 };
 
 const char* const TESTS_OPEN_FILE_FAILURE_ALLERT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
-const char* const TEST_FAILURE_ALLERT = "Тест номер %d кооэффиценты %lg, %lg, %lg провален корни должны быть %lg, %lg, a не %lg, %lg\n";
+const char* const TEST_FAILURE_ALLERT = "Тест номер %d кооэффиценты %lg, %lg, %lg провален т.к. корни должны быть %lg и %lg, a не %lg и %lg\n";
 
 const char* const INF = "inf";
 const char* const ZERO = "0";

@@ -8,6 +8,7 @@
 #include <assert.h>
 
 nPassedTests RunTest(int* nAllTests){
+    assert(nAllTests);
     // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
     FILE* fileWithTests = NULL;
 
@@ -49,6 +50,9 @@ bool openFile(FILE** fileWithTests){
 }
 
 bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){ 
+    assert(fileWithTests);
+    assert(curTest);
+
     char nroots[4];
     if((fscanf(fileWithTests, "%s %lf %lf %lf", nroots,
                                                 &curTest->equationData.coefs.a, 
@@ -89,14 +93,19 @@ nPassedTests OneTest(testsData_t curTest){
 }
 
 void createReferenceTest(equationData_t* reference, testsData_t* curTest){
+    assert(reference);
+    assert(curTest);
+
     reference->coefs = curTest->equationData.coefs;
 }
 
 bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest){
+    assert(curTest);
+    assert(reference);
+
     if(!(isEqualDoubles(reference->roots.x1, curTest->equationData.roots.x1) && 
          isEqualDoubles(reference->roots.x2, curTest->equationData.roots.x2) && 
          nRoots == curTest->nRootsRef)){
-        printf("%d %d", nRoots, curTest->nRootsRef);
         printf(TEST_FAILURE_ALLERT, nTest, curTest->equationData.coefs.a, 
                                            curTest->equationData.coefs.b,
                                            curTest->equationData.coefs.c,

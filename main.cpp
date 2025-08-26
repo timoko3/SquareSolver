@@ -6,8 +6,6 @@
 #include "UI.h"
 #include "unitTests.h"
 
-// poriadoc
-
 int main(void){
     int nAllTests = 0;
     int nPassed = RunTest(&nAllTests);

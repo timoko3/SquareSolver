@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <math.h>
+#include <assert.h>
 #include "common.h"
 
 bool isZero(double number){
@@ -11,4 +12,12 @@ bool isEqualDoubles(double num1, double num2){
         return true;
     }
     return false;
+}
+
+void fixInfelicity(double* num){
+    assert(num);
+
+    if(fabs(*num) < INFELICITY){
+        *num = 0;
+    }
 }

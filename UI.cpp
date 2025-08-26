@@ -8,6 +8,7 @@
 #include "UI.h"
 #include "modes.h"
 #include "unitTests.h"
+#include "consoleColors.h"
 
 static void showTopMenu();
 static menu_mode_t get_mode();
@@ -23,7 +24,7 @@ menu_mode_t chooseMode(){ // to modes
 }
 
 bool get_coefficents(coefs_t* coefs) {
-    assert(coefs != NULL);
+    assert(coefs);
 
     printf("%s", INSTRUCTION);
     while(scanf("%lf %lf %lf", &(coefs->a), &(coefs->b), &(coefs->c)) != 3){
@@ -46,6 +47,8 @@ bool get_coefficents(coefs_t* coefs) {
 
 void printFinalOutput(roots_t* roots,
                       numRoots nRoots){
+    assert(roots);
+    
     for(int i = 0; i < nRootsCases; i++){
         if(allRootsDescription[i].quantity == nRoots){
             printf(allRootsDescription[i].stringDescription, roots->x1, roots->x2);
