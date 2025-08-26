@@ -13,7 +13,7 @@ static void showTopMenu();
 static menu_mode_t get_mode();
 static void clearBuffer();
 
-void showTestsResult(int nPassed, const int nAllTests){
+void showTestsResult(int nPassed, int nAllTests){
     printf(TO_PRINT_TESTS_RESULT, nPassed, nAllTests);
 }
 

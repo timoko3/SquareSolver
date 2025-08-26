@@ -27,8 +27,9 @@ numRoots solveQuadEqua(equationData_t* data){ // user?
         return NO_VALID_ROOTS;
     }
     else /* if(discriminant > 0) */{   
-        data->roots.x1 = (-data->coefs.b + sqrt(discriminant)) / (2 * data->coefs.a);
-        data->roots.x2 = (-data->coefs.b - sqrt(discriminant)) / (2 * data->coefs.a);
+        data->roots.x1 = (-data->coefs.b - sqrt(discriminant)) / (2 * data->coefs.a);
+        data->roots.x2 = (-data->coefs.b + sqrt(discriminant)) / (2 * data->coefs.a);
+        
 
         assert(!isEqualDoubles(data->roots.x1, data->roots.x2));
 
@@ -47,7 +48,7 @@ numRoots solveLinear(double k, double b, double* x){
             return INFINITY_OF_ROOTS;
         }
         else{
-            return NO_ANY_ROOTS;
+            return NO_VALID_ROOTS;
         }
     }
     else{

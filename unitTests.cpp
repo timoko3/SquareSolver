@@ -1,69 +1,110 @@
 #include "solve.h"
 #include "common.h"
 #include "unitTests.h"
-#include <stdio.h>
 
-nPassedTests RunTest(){
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+
+nPassedTests RunTest(int* nAllTests){
+    // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
+    FILE* fileWithTests = NULL;
+
+    if(openFile(&fileWithTests) == PARSE_FAILURE) return PARSE_FAILURE; // OpenFile // Roots roots
+
     int nPassed = 0;
     
-    // инструкция к тесту OneTest(<coefs a>, <coefs b>, <coefs c>, <max root>, <min root>, <numRoot>) // swap
-    testsData_t all_tests[N_OF_TESTS] = {
-       // {{{.a = 1, .b = -5, .c = 6},  {.x1 = 3, .x2 = 2}},  .nRootsRef = TWO_ROOTS},
-       // {{{.a = 1, .b = 0,  .c = -4}, {.x1 = 2, .x2 = -2}}, .nRootsRef = TWO_ROOTS},
-    };
-    parseTestsFromFile(all_tests);
+    while(true){
+        
+        testsData_t curTest = {};
+        
+        if(!parseTestsFromFile(fileWithTests, &curTest, nAllTests))break;
 
-    for(int test = 0; test < N_OF_TESTS; test++){
-        nPassed += OneTest(all_tests[test]);
+        nPassed += OneTest(curTest);
     }
     
+    fclose(fileWithTests);
+
     return nPassed;
+}
+
+ bool parseTestsFromFile(FILE* fileWithTests, testsData_t* curTest, int* nAllTests){
+    assert(fileWithTests != NULL);
+
+    if(getTestToFile(fileWithTests, curTest) == PARSE_FAILURE) return PARSE_FAILURE;
+    (*nAllTests)++;
+
+    return PARSE_SUCCESS;
+}
+
+bool openFile(FILE** fileWithTests){
+    assert(fileWithTests);
+
+    if((*fileWithTests = fopen("test_quad.txt", "r")) == NULL){
+        printf("%s", TESTS_OPEN_FILE_FAILURE_ALLERT);
+        return PARSE_FAILURE;
+    }
+    return PARSE_SUCCESS;
+}
+
+bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){ 
+    char nroots[4];
+    if((fscanf(fileWithTests, "%s %lf %lf %lf", nroots,
+                                                &curTest->equationData.coefs.a, 
+                                                &curTest->equationData.coefs.b, 
+                                                &curTest->equationData.coefs.c
+                                                )) != 4){
+        return PARSE_FAILURE;
+    }  
+    if(!strcmp(nroots, INF)){
+        curTest->nRootsRef = INFINITY_OF_ROOTS;
+        
+    }
+    else if(!strcmp(nroots, ZERO)){
+        curTest->nRootsRef = NO_VALID_ROOTS; 
+    }
+    else if(!strcmp(nroots, ONE)){
+        curTest->nRootsRef = ONE_ROOT;
+        fscanf(fileWithTests, "%lf", &curTest->equationData.roots.x1);
+    }
+    else if(!strcmp(nroots, TWO)){
+        curTest->nRootsRef = TWO_ROOTS;
+        fscanf(fileWithTests, "%lf %lf", &curTest->equationData.roots.x1, &curTest->equationData.roots.x2);
+    }
+    return PARSE_SUCCESS;
+
 }
 
 nPassedTests OneTest(testsData_t curTest){
     static int nTest = 0;
+    nTest++;
 
     equationData_t reference = {};
-    reference.coefs = curTest.equationData.coefs;
-    reference.roots.x1 = curTest.equationData.roots.x1;
-    reference.roots.x1 = curTest.equationData.roots.x2;
-
+    createReferenceTest(&reference, &curTest);
     numRoots nRoots = solveQuadEqua(&reference);
-    nTest++;
-    if(!(isEqualDoubles(reference.roots.x1, curTest.equationData.roots.x1) && 
-         isEqualDoubles(reference.roots.x2, curTest.equationData.roots.x2) && 
-         isEqualDoubles(nRoots, curTest.nRootsRef))){
-        printf(TEST_FAILURE_ALLERT, nTest);
+    if(isUnpassed(&curTest, &reference, nRoots, nTest)) 
         return 0;
-    }
-    //printf("Тест номер %d пройден\n", nTest);
     return 1;
 }
 
- bool parseTestsFromFile(testsData_t* testsData){
-    FILE * fileWithTests;
-    if((fileWithTests = fopen("test_quad.txt", "r")) == NULL){
-        printf("%s", TESTS_OPEN_FILE_FAILURE_ALLERT);
-        return PARSE_FAILURE;
-    }
+void createReferenceTest(equationData_t* reference, testsData_t* curTest){
+    reference->coefs = curTest->equationData.coefs;
+}
 
-    int i = 0;
-    int nBadTests = 0;
-
-    while(i < N_OF_TESTS){
-        int nroots;
-        if((fscanf(fileWithTests, "%lf %lf %lf %lf %lf %d", &testsData[i].equationData.coefs.a, 
-                                                            &testsData[i].equationData.coefs.b, 
-                                                            &testsData[i].equationData.coefs.c,
-                                                            &testsData[i].equationData.roots.x1,
-                                                            &testsData[i].equationData.roots.x2,
-                                                            &nroots)) != 6){
-            nBadTests++;
-            continue;
-        }
-        (testsData[i].nRootsRef) = (numRoots)nroots;
-        i++;
+bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots nRoots, int nTest){
+    if(!(isEqualDoubles(reference->roots.x1, curTest->equationData.roots.x1) && 
+         isEqualDoubles(reference->roots.x2, curTest->equationData.roots.x2) && 
+         nRoots == curTest->nRootsRef)){
+        printf("%d %d", nRoots, curTest->nRootsRef);
+        printf(TEST_FAILURE_ALLERT, nTest, curTest->equationData.coefs.a, 
+                                           curTest->equationData.coefs.b,
+                                           curTest->equationData.coefs.c,
+                                           reference->roots.x1,
+                                           reference->roots.x2,
+                                           curTest->equationData.roots.x1,
+                                           curTest->equationData.roots.x2);
+        return true;
     }
-    fclose(fileWithTests);
-    return PARSE_SUCCESS;
+    return false;
 }

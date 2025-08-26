@@ -18,7 +18,6 @@ const char* const INFINITY_OF_ROOTS_TO_PTINT = "Данное уравнение 
 const char* const NO_VALID_ROOTS_TO_PTINT    = "Данное уравнение не имеет решений в действительных числах\n";
 const char* const TWO_ROOTS_TO_PTINT         = "Данное уравнение имеет два корня x1 = %lg, x2 = %lg\n";
 const char* const ONE_ROOT_TO_PTINT          = "Данное уравнение имеет один корень x1 = %lg\n";
-const char* const NO_ANY_ROOTS_TO_PTINT      = "Данное уравнения не имеет решений\n"; 
 
 struct rootDescription{
     numRoots quantity;
@@ -29,8 +28,7 @@ const struct rootDescription allRootsDescription[nRootsCases]{
     {INFINITY_OF_ROOTS, INFINITY_OF_ROOTS_TO_PTINT},
     {NO_VALID_ROOTS,    NO_VALID_ROOTS_TO_PTINT},
     {TWO_ROOTS,         TWO_ROOTS_TO_PTINT},
-    {ONE_ROOT,          ONE_ROOT_TO_PTINT},
-    {NO_ANY_ROOTS,      NO_ANY_ROOTS_TO_PTINT}
+    {ONE_ROOT,          ONE_ROOT_TO_PTINT}
 };
 
 void showTestsResult(int nPassed, int nAllTests);
