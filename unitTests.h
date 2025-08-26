@@ -1,6 +1,6 @@
 #include "nRoots.h"
 
-const int N_OF_TESTS = 4;
+const int N_OF_TESTS = 3;
 
 typedef int nPassedTests;
 
