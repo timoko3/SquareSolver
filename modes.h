@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 
+#include "consoleColors.h"
+
 const int MENU_FIRST_ITEM = 1; 
 const char RETURN_TO_TOP_MENU = 'q';
 
@@ -14,10 +16,10 @@ struct menuMode{
     const char* stringDescription;
 };
 
-const char* const USER_EQUATIONS_VARIANT    = "Решение введенных вами квадратных уравнений\n";
-const char* const RANDOM_EQUATIONS_VARIANT  = "Решение множества квадратных уравнений со случайными коэффицентами\n";
-const char* const TRAINER_EQUATIONS_VARIANT = "Тренажер по решению квадртаных уравнений\n";
-const char* const EXIT_VARIANT              = "Выйти из программы\n";
+const char* const USER_EQUATIONS_VARIANT    = SET_STYLE_BOLD_FONT_BLUE"Решение введенных вами квадратных уравнений\n" RESET;
+const char* const RANDOM_EQUATIONS_VARIANT  = SET_STYLE_BOLD_FONT_BLUE"Решение множества квадратных уравнений со случайными коэффицентами\n" RESET;
+const char* const TRAINER_EQUATIONS_VARIANT = SET_STYLE_BOLD_FONT_BLUE"Тренажер по решению квадртаных уравнений\n" RESET;
+const char* const EXIT_VARIANT              = SET_STYLE_BOLD_FONT_BLUE"Выйти из программы\n" RESET;
 
 void userEquations();
 void randomEquations();

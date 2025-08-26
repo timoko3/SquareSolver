@@ -15,7 +15,12 @@ static menu_mode_t get_mode();
 static void clearBuffer();
 
 void showTestsResult(int nPassed, int nAllTests){
-    printf(TO_PRINT_TESTS_RESULT, nPassed, nAllTests);
+    if(nPassed == nAllTests){
+        printf(TO_PRINT_TESTS_RESULT_SUCCESS, nPassed, nAllTests);
+    }
+    else{
+        printf(TO_PRINT_TESTS_RESULT_FAILURE, nPassed, nAllTests);
+    }
 }
 
 menu_mode_t chooseMode(){ // to modes
@@ -57,7 +62,6 @@ void printFinalOutput(roots_t* roots,
 }
 
 static void showTopMenu(){
-    printf("%s", WELCOME);
     printf("%s", CHOOSE_MODE);
     for(int i = 0; i < EXIT; i++){
         printf("%d) %s", i + MENU_FIRST_ITEM, allModes[i].stringDescription);
