@@ -7,4 +7,5 @@ bool isZero(double num);
 bool isEqualDoubles(double num1, double num2);
 void fixInfelicity(double* num);
 
+
 #endif

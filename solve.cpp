@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include <assert.h>
 #include "solve.h"
 #include "common.h"
@@ -61,4 +63,15 @@ numRoots solveLinear(double k, double b, double* x){
         return ONE_ROOT;
     }
     
+}
+
+void genRandomCoefs(equationData_t* data, int randMax){
+    assert(data);
+
+    srand(time(0));
+
+    data->coefs.a = rand() % randMax;
+    data->coefs.b = rand() % randMax;
+    data->coefs.c = rand() % randMax;
+
 }

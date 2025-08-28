@@ -1,3 +1,6 @@
+#ifndef UNIT_TESTS_H
+#define UNIT_TESTS_H
+
 #include "nRoots.h"
 #include "consoleColors.h"
 
@@ -20,8 +23,11 @@ const char* const TEST_FAILURE_ALLERT = SET_STYLE_BLINKING_FONT_RED "Тест н
                                                                     "Корни должны быть %lg и %lg, a не %lg и %lg\n" RESET;
 
 const char* const INF = "inf";
+const char* const NOT_A_NUM = "nan";
 const char* const ZERO = "0";
 const char* const ONE = "1";
 const char* const TWO = "2";
+const char* const NO = "no";
 
 nPassedTests RunTest(int* nAllTests);
+#endif /* UNIT_TESTS_H */

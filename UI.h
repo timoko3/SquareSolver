@@ -4,6 +4,7 @@
 #include "nRoots.h"
 #include "modes.h"
 #include "consoleColors.h"
+#include "unitTests.h"
 
 const char* const TO_PRINT_TESTS_RESULT_SUCCESS = SET_STYLE_BOLD_FONT_GREEN "Пройдено %d/%d тестов\n" RESET;
 const char* const TO_PRINT_TESTS_RESULT_FAILURE = SET_STYLE_BOLD_FONT_RED "Пройдено %d/%d тестов\n" RESET;
@@ -21,6 +22,16 @@ const char* const NO_VALID_ROOTS_TO_PTINT    = "Данное уравнение 
 const char* const TWO_ROOTS_TO_PTINT         = "Данное уравнение имеет два корня " SET_STYLE_BOLD_FONT_YELLOW "x1 = %lg, x2 = %lg\n" RESET;
 const char* const ONE_ROOT_TO_PTINT          = "Данное уравнение имеет один корень " SET_STYLE_BOLD_FONT_YELLOW "x1 = %lg\n" RESET;
 
+const char* const INSTRUCTION_ENTER_RAND_MAX = "Введите максималное значение коэффицентов квадратного уравнения\n";
+const char* const ALLERT_INCORRECT_RAND_MAX  = "Максимальное значение коэффицентов должно быть целым числом\n";
+const char* const TRY_AGAIN                  = "Попробуйте еще раз\n";
+const char* const INSTRUCTION_TRAINER        = "Решите уравнение и напишете результат в виде <min root> <max root>\n"
+                                                "(Если количество корней бескночено пишите \"inf\",\n"
+                                                "елси корень отсутствует пишите \"nan\",\n";
+const char* const ALLERT_INCORRECT_ANS_ENTER = "Некорректный ввод решений квадратного уравнения\n";
+const char* const PRAISE                     = "Молодец! Ты решил правильно!\n";
+const char* const COMFORT                    = "В этот раз не вышло. Попробуй еще раз\n";
+
 struct rootDescription{
     numRoots quantity;
     const char* const stringDescription;
@@ -33,11 +44,27 @@ const struct rootDescription allRootsDescription[nRootsCases]{
     {ONE_ROOT,          ONE_ROOT_TO_PTINT},
 };
 
+struct  answers{
+    char ans1[50];
+    char ans2[50];
+};
+
+
 void showTestsResult(int nPassed, int nAllTests);
 menu_mode_t chooseMode();
 bool get_coefficents(coefs_t* coefs);
 void printFinalOutput(roots_t* roots, numRoots nRoots);
 
-#endif /*  */
+// 3 режим
+
+int chooseRandMax();
+void printTrainerInstruction();
+void userEnterSolution(testsData_t* data);
+bool isSolutionRight(testsData_t* reference, testsData_t* userData);
+void printDependingOnResult(bool isRight);
+
+
+
+#endif /* UI_H */
 
 

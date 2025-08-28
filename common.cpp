@@ -21,3 +21,4 @@ void fixInfelicity(double* num){
         *num = 0;
     }
 }
+
