@@ -18,8 +18,8 @@ enum fileParseResult{
     PARSE_SUCCESS = 1
 };
 
-const char* const TESTS_OPEN_FILE_FAILURE_ALLERT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
-const char* const TEST_FAILURE_ALLERT = SET_STYLE_BLINKING_FONT_RED "Тест номер %d с кооэффицентами %lg, %lg, %lg провален!!!\n"
+const char* const TESTS_OPEN_FILE_FAILURE_ALERT = "Не удалось открыть файл с тестами.Тестирования не будет\n";
+const char* const TEST_FAILURE_ALERT = SET_STYLE_BLINKING_FONT_RED "Тест номер %d с кооэффицентами %lg, %lg, %lg провален!!!\n"
                                                                     "Корни должны быть %lg и %lg, a не %lg и %lg\n" RESET;
 
 const char* const INF = "inf";

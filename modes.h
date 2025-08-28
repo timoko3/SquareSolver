@@ -21,6 +21,8 @@ const char* const RANDOM_EQUATIONS_VARIANT  = SET_STYLE_BOLD_FONT_BLUE "Реше
 const char* const TRAINER_EQUATIONS_VARIANT = SET_STYLE_BOLD_FONT_BLUE "Тренажер по решению квадртаных уравнений\n" RESET;
 const char* const EXIT_VARIANT              = SET_STYLE_BOLD_FONT_BLUE "Выйти из программы\n" RESET;
 
+const char* const EQUATION                  = "Уравнение: " SET_STYLE_ITALICS_FONT_YELLOW "%+lg*x^2%+lg*x%+lg\n" RESET;
+
 void userEquations();
 void randomEquations();
 void trainerEquations();

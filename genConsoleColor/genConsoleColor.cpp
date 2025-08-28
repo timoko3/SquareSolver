@@ -3,18 +3,18 @@
 
 #include "consoleColorsConst.h"
 
-void concantenate(FILE* fp);
+void concatenate(FILE* fp);
 FILE* openFile();
 void closeFile(FILE* fp);
 
 int main(void){
     FILE* fp = openFile();
     assert(fp);
-    concantenate(fp);
+    concatenate(fp);
     closeFile(fp);
 }
 
-void concantenate(FILE* fp){
+void concatenate(FILE* fp){
     assert(fp);
 
     const char* guard = "CONSOLE_COLORS_H";

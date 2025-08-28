@@ -39,7 +39,7 @@ static bool openFile(FILE** fileWithTests){
     assert(fileWithTests);
 
     if((*fileWithTests = fopen("test_quad.txt", "r")) == NULL){
-        printf("%s", TESTS_OPEN_FILE_FAILURE_ALLERT);
+        printf("%s", TESTS_OPEN_FILE_FAILURE_ALERT);
         return PARSE_FAILURE;
     }
     return PARSE_SUCCESS;
@@ -99,10 +99,10 @@ static bool isUnpassed(testsData_t* curTest, equationData_t* reference, numRoots
     assert(curTest);
     assert(reference);
 
-    if(!(isEqualDoubles(reference->roots.x1, curTest->equationData.roots.x1) && 
-         isEqualDoubles(reference->roots.x2, curTest->equationData.roots.x2) && 
+    if(!(isEqualDoubles(reference->roots.x1, curTest->equationData.roots.x1, INFELICITY) && 
+         isEqualDoubles(reference->roots.x2, curTest->equationData.roots.x2, INFELICITY) && 
          nRoots == curTest->nRootsRef)){
-        printf(TEST_FAILURE_ALLERT, nTest, curTest->equationData.coefs.a, 
+        printf(TEST_FAILURE_ALERT, nTest, curTest->equationData.coefs.a, 
                                            curTest->equationData.coefs.b,
                                            curTest->equationData.coefs.c,
                                            reference->roots.x1,

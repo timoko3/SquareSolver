@@ -13,7 +13,7 @@ void userEquations(){
             {.x1 = 0, .x2 = 0}
         };
 
-        if(!get_coefficents(&data.coefs)){
+        if(!get_coefficients(&data.coefs)){
             break;
         }
 
@@ -29,24 +29,25 @@ void randomEquations(){
 void trainerEquations(){
     testsData_t reference = {0};
 
-    int randMax = chooseRandMax();
-    genRandomCoefs(&reference.equationData, randMax);
+    int randMaxModule = chooseRandMaxModule();
+    genRandomCoefs(&reference.equationData, randMaxModule);
     
     reference.nRootsRef = solveQuadEqua(&reference.equationData);
-    printTrainerInstruction();
-    printf("Уравнение: %lg*x^2+%lg*x+%lg\n", reference.equationData.coefs.a, 
-                                           reference.equationData.coefs.b, 
-                                           reference.equationData.coefs.c);
+    printf(INSTRUCTION_TRAINER);
+    printf(EQUATION, reference.equationData.coefs.a, 
+                     reference.equationData.coefs.b, 
+                     reference.equationData.coefs.c);
 
     testsData_t userData = {0};
     userData.equationData.coefs = reference.equationData.coefs;
-
     userEnterSolution(&userData);
+
     printf("ref %lf — user %lf\nref %lf — user %lf\nref %d — user %d\n", reference.equationData.roots.x1, 
                                                                          userData.equationData.roots.x1,
                                                                          reference.equationData.roots.x2,
                                                                          userData.equationData.roots.x2,
                                                                          reference.nRootsRef,
                                                                          userData.nRootsRef);
+
     printDependingOnResult(isSolutionRight(&reference, &userData));
 }

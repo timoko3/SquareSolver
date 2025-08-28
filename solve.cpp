@@ -36,7 +36,7 @@ numRoots solveQuadEqua(equationData_t* data){
         fixInfelicity(&data->roots.x1);
         fixInfelicity(&data->roots.x2);
         
-        assert(!isEqualDoubles(data->roots.x1, data->roots.x2));
+        assert(!isEqualDoubles(data->roots.x1, data->roots.x2, INFELICITY));
 
         return TWO_ROOTS;
     }
@@ -65,13 +65,14 @@ numRoots solveLinear(double k, double b, double* x){
     
 }
 
-void genRandomCoefs(equationData_t* data, int randMax){
+void genRandomCoefs(equationData_t* data, int randMaxModule){
     assert(data);
 
     srand(time(0));
 
-    data->coefs.a = rand() % randMax;
-    data->coefs.b = rand() % randMax;
-    data->coefs.c = rand() % randMax;
+    data->coefs.a = -randMaxModule + rand() % (2 * randMaxModule + 1);
+    data->coefs.b = -randMaxModule + rand() % (2 * randMaxModule + 1);
+    data->coefs.c = -randMaxModule + rand() % (2 * randMaxModule + 1);
 
 }
+

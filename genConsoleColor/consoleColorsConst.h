@@ -11,7 +11,7 @@ const char* const RESET         = "\\033[0m";
 
 const style_t grounds[] = {
     {"3", "FONT"},
-    {"4", "BACKGROUNG"}
+    {"4", "BACKGROUND"}
 };
 
 const style_t colors[] = {

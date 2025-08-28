@@ -4,11 +4,11 @@
 #include "common.h"
 
 bool isZero(double number){
-    return isEqualDoubles(number, 0);
+    return isEqualDoubles(number, 0, INFELICITY);
 }
 
-bool isEqualDoubles(double num1, double num2){
-    if(fabs(num2 - num1) < INFELICITY){
+bool isEqualDoubles(double num1, double num2, const double infelicity){
+    if(fabs(num2 - num1) < infelicity){
         return true;
     }
     return false;
