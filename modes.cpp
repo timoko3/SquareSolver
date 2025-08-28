@@ -34,15 +34,19 @@ void trainerEquations(){
     
     reference.nRootsRef = solveQuadEqua(&reference.equationData);
     printTrainerInstruction();
-    printf("Уравнение: %lg*x^2+%lg*x+%lg", reference.equationData.coefs.a, 
-                                        reference.equationData.coefs.b, 
-                                        reference.equationData.coefs.c);
+    printf("Уравнение: %lg*x^2+%lg*x+%lg\n", reference.equationData.coefs.a, 
+                                           reference.equationData.coefs.b, 
+                                           reference.equationData.coefs.c);
 
     testsData_t userData = {0};
     userData.equationData.coefs = reference.equationData.coefs;
 
     userEnterSolution(&userData);
-
+    printf("ref %lf — user %lf\nref %lf — user %lf\nref %d — user %d\n", reference.equationData.roots.x1, 
+                                                                         userData.equationData.roots.x1,
+                                                                         reference.equationData.roots.x2,
+                                                                         userData.equationData.roots.x2,
+                                                                         reference.nRootsRef,
+                                                                         userData.nRootsRef);
     printDependingOnResult(isSolutionRight(&reference, &userData));
-    printf("%s", WORK_IN_PROGRESS);
 }

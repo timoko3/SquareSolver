@@ -96,8 +96,8 @@ void userEnterSolution(testsData_t* data){
         getAnswer(answers.ans2);
 
         double conversion1 = 0,conversion2 = 0;
-        if((conversion1 = atof(answers.ans1))){
-            if((conversion2 = atof(answers.ans2))){
+        if(sscanf(answers.ans1, "%lf", &conversion1)){ // исправить ввод нуля 
+            if(sscanf(answers.ans1, "%lf", &conversion2)){
                 data->equationData.roots.x1 = conversion1;
                 data->equationData.roots.x2 = conversion2;
                 data->nRootsRef = TWO_ROOTS;
@@ -107,6 +107,7 @@ void userEnterSolution(testsData_t* data){
                 data->nRootsRef = ONE_ROOT;
             }
             else{
+                printf("MEOW");
                 printf(ALLERT_INCORRECT_ANS_ENTER);
                 continue;
             }
@@ -114,10 +115,11 @@ void userEnterSolution(testsData_t* data){
         else if(!strcmp(answers.ans1, INF)){
             data->nRootsRef = INFINITY_OF_ROOTS;
         }
-        else if(!strcmp(answers.ans2, NOT_A_NUM)){
+        else if(!strcmp(answers.ans1, NOT_A_NUM)){
             data->nRootsRef = NO_VALID_ROOTS;
         }
         else{
+            printf("%s — %s", answers.ans1, NOT_A_NUM);
             printf(ALLERT_INCORRECT_ANS_ENTER);
             continue;
         }
@@ -132,6 +134,10 @@ bool isSolutionRight(testsData_t* reference, testsData_t* userData){
         isEqualDoubles(userData->equationData.roots.x2, reference->equationData.roots.x2)){
             return true;
     }
+    printf("%d %d %d\n", userData->nRootsRef == reference->nRootsRef, 
+                       isEqualDoubles(userData->equationData.roots.x1, reference->equationData.roots.x1),
+                       isEqualDoubles(userData->equationData.roots.x2, reference->equationData.roots.x2
+                    ));
     return false;
 }
 
@@ -143,9 +149,6 @@ void printDependingOnResult(bool isRight){
         printf(COMFORT);
     }
 }
-
-
-
 
 static void showTopMenu(){
     printf("%s", CHOOSE_MODE);
