@@ -22,7 +22,9 @@ static void clearBuffer();
 // 3 режим 
 
 static int getRandMax();
-static void getAnswer(char* answer);
+static bool getAnswer(char* answer);
+static void setAnswers(testsData_t* data, double conversion1, double conversion2);
+
 
 void showTestsResult(int nPassed, int nAllTests){
     if(nPassed == nAllTests){
@@ -78,36 +80,24 @@ int chooseRandMaxModule(){
     return getRandMax();
 }
 
-void userEnterSolution(testsData_t* data){
+bool userEnterSolution(testsData_t* data){
     assert(data);
 
-    char buffer[100];
-    fgets(buffer, 100, stdin);
-
-    answers answers = {"\0", "\0"};
     bool flag = true;
+    double conversion1 = 0,conversion2 = 0;
+    bool statusConversion1, statusConversion2;
     while(flag){
-        getAnswer(answers.ans1);
-        getAnswer(answers.ans2);
+        answers answers = {"\0", "\0"};
 
-        double conversion1 = 0,conversion2 = 0;
-        if(sscanf(answers.ans1, "%lf", &conversion1)){
-            if(sscanf(answers.ans2, "%lf", &conversion2)){
-                printf("GAF\n");
-                data->equationData.roots.x1 = conversion1;
-                data->equationData.roots.x2 = conversion2;
-                data->nRootsRef = TWO_ROOTS;
-            }
-            else if(!strcmp(answers.ans2,"\0")){
-                data->equationData.roots.x1 = conversion1;
-                data->nRootsRef = ONE_ROOT;
-            }
-            else{
-                printf("MEOW\n");
-                printf(ALERT_INCORRECT_ANS_ENTER);
-                continue;
-            }
+        if(!getAnswer(answers.ans1)) return false;
+        if(!getAnswer(answers.ans2)) return false;
 
+
+        if((statusConversion1 =  sscanf(answers.ans1, "%lf", &conversion1)) && (statusConversion2 = sscanf(answers.ans2, "%lf", &conversion2))){
+            data->nRootsRef = TWO_ROOTS;
+        }
+        else if(statusConversion1){
+            data->nRootsRef = ONE_ROOT;
         }
         else if(!strcmp(answers.ans1, INF)){
             data->nRootsRef = INFINITY_OF_ROOTS;
@@ -116,13 +106,17 @@ void userEnterSolution(testsData_t* data){
             data->nRootsRef = NO_VALID_ROOTS;
         }
         else{
-            printf("%s — %s", answers.ans1, NOT_A_NUM);
+            printf("%s %s\n", answers.ans1, answers.ans2);
             printf(ALERT_INCORRECT_ANS_ENTER);
             continue;
         }
 
         flag = false;
     }
+
+    setAnswers(data, conversion1, conversion2);
+
+    return true;
 }
 
 bool isSolutionRight(testsData_t* reference, testsData_t* userData){
@@ -184,16 +178,35 @@ static int getRandMax(){
         printf(TRY_AGAIN);
         clearBuffer();
     }
+    clearBuffer();
     return randMaxModule;
 }
 
-static void getAnswer(char* answer){
+static bool getAnswer(char* answer){
     char ch = 0;
     int i = 0;
     while(!isspace(ch = getchar())){
+        if(ch == RETURN_TO_TOP_MENU){
+            clearBuffer();
+            return false;
+        }
         answer[i] = ch;
         i++;
     }
     i++;
     answer[i] = '\0';
+    return true;
+}
+
+static void setAnswers(testsData_t* data, double conversion1, double conversion2){
+    if(data->nRootsRef == TWO_ROOTS){
+        printf("%lf, %lf\n", conversion1, conversion2);
+        sortRoots(&conversion1, &conversion2);
+        data->equationData.roots.x1 = conversion1;
+        data->equationData.roots.x2 = conversion2;
+        printf("%lf, %lf\n", conversion1, conversion2);
+    }
+    else if(data->nRootsRef == ONE_ROOT){
+        data->equationData.roots.x1 = conversion1;
+    }
 }

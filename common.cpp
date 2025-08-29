@@ -22,3 +22,10 @@ void fixInfelicity(double* num){
     }
 }
 
+void sortRoots(double* root1, double* root2){
+    if(*root1 > *root2){
+        double temp = *root1;
+        *root1 = *root2;
+        *root2 = temp;
+    }
+}

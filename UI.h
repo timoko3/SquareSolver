@@ -25,10 +25,11 @@ const char* const ONE_ROOT_TO_PRINT          = "Данное уравнение 
 const char* const INSTRUCTION_ENTER_RAND_MAX = "Введите максималное значение коэффицентов квадратного уравнения\n";
 const char* const ALERT_INCORRECT_RAND_MAX   = "Максимальное значение коэффицентов должно быть целым числом\n";
 const char* const TRY_AGAIN                  = "Попробуйте еще раз\n";
-const char* const INSTRUCTION_TRAINER        = "Решите уравнение и напишете результат в виде <min root> <max root>\n"
-                                               "(Если количество корней бескночено пишите \"inf\",\n"
+const char* const INSTRUCTION_TRAINER        = "Введите корни(Если количество корней бескночено пишите \"inf\",\n"
                                                "елси корень отсутствует пишите \"nan\",\n"
-                                               "дайте ответ с точностью до сотых\n";
+                                               "дайте ответ с точностью до сотых,\n"
+                                               "для возврата в меню нажмите q\n";
+
 const char* const ALERT_INCORRECT_ANS_ENTER  = "Некорректный ввод решений квадратного уравнения\n";
 const char* const PRAISE                     = "Молодец! Ты решил правильно!\n";
 const char* const COMFORT                    = "В этот раз не вышло. Попробуй еще раз\n";
@@ -59,7 +60,7 @@ void printFinalOutput(roots_t* roots, numRoots nRoots);
 // 3 режим
 
 int chooseRandMaxModule();
-void userEnterSolution(testsData_t* data);
+bool userEnterSolution(testsData_t* data);
 bool isSolutionRight(testsData_t* reference, testsData_t* userData);
 void printDependingOnResult(bool isRight);
 

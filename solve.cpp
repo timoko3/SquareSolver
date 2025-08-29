@@ -33,6 +33,7 @@ numRoots solveQuadEqua(equationData_t* data){
         data->roots.x1 = (-data->coefs.b - sqrt(discriminant)) / (2 * data->coefs.a);
         data->roots.x2 = (-data->coefs.b + sqrt(discriminant)) / (2 * data->coefs.a);
 
+
         fixInfelicity(&data->roots.x1);
         fixInfelicity(&data->roots.x2);
         
@@ -70,7 +71,8 @@ void genRandomCoefs(equationData_t* data, int randMaxModule){
 
     srand(time(0));
 
-    data->coefs.a = -randMaxModule + rand() % (2 * randMaxModule + 1);
+    // генерация чисел от -randMaxModule до +randMaxModule
+    data->coefs.a = -randMaxModule + rand() % (2 * randMaxModule + 1); 
     data->coefs.b = -randMaxModule + rand() % (2 * randMaxModule + 1);
     data->coefs.c = -randMaxModule + rand() % (2 * randMaxModule + 1);
 
