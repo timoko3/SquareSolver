@@ -73,7 +73,6 @@ static bool getTestToFile(FILE* fileWithTests, testsData_t* curTest){
         fscanf(fileWithTests, "%lf %lf", &curTest->equationData.roots.x1, &curTest->equationData.roots.x2);
     }
     return PARSE_SUCCESS;
-
 }
 
 static nPassedTests OneTest(testsData_t curTest){

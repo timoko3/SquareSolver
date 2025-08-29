@@ -28,6 +28,8 @@ void concatenate(FILE* fp){
             fprintf(fp, "\n");
             for(size_t color = 0; color < (sizeof(colors) / sizeof(style_t)); color++){
                 char buffer[100];
+                // return value of printf
+                // int i = 
                 sprintf(buffer, "#define SET_STYLE_%s_%s_%s ", 
                                                    styles[style].name, 
                                                    grounds[ground].name,

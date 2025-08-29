@@ -17,11 +17,11 @@
 
 static void showTopMenu();
 static menu_mode_t get_mode();
-static void clearBuffer();
 
 // 3 режим 
 
 static int getRandMax();
+static numRoots getNRoots();
 static bool getAnswer(char* answer);
 static void setAnswers(testsData_t* data, double conversion1, double conversion2);
 
@@ -83,38 +83,36 @@ int chooseRandMaxModule(){
 bool userEnterSolution(testsData_t* data){
     assert(data);
 
-    bool flag = true;
-    double conversion1 = 0,conversion2 = 0;
-    bool statusConversion1, statusConversion2;
-    while(flag){
+    double conversion1 = 0, conversion2 = 0;
+    while(true){
         answers answers = {"\0", "\0"};
 
-        if(!getAnswer(answers.ans1)) return false;
-        if(!getAnswer(answers.ans2)) return false;
-
-
-        if((statusConversion1 =  sscanf(answers.ans1, "%lf", &conversion1)) && (statusConversion2 = sscanf(answers.ans2, "%lf", &conversion2))){
-            data->nRootsRef = TWO_ROOTS;
+        data->nRootsRef = getNRoots();
+        
+        if(data->nRootsRef == INFINITY_OF_ROOTS){
+            return true;
         }
-        else if(statusConversion1){
-            data->nRootsRef = ONE_ROOT;
+        else if(data->nRootsRef == NO_VALID_ROOTS){
+            return true;
         }
-        else if(!strcmp(answers.ans1, INF)){
-            data->nRootsRef = INFINITY_OF_ROOTS;
+        else if(data->nRootsRef == ONE_ROOT){
+            printf(ENTER_FIRST_ROOT);
+            if(!getAnswer(answers.ans1)) return false;
         }
-        else if(!strcmp(answers.ans1, NOT_A_NUM)){
-            data->nRootsRef = NO_VALID_ROOTS;
-        }
-        else{
-            printf("%s %s\n", answers.ans1, answers.ans2);
-            printf(ALERT_INCORRECT_ANS_ENTER);
-            continue;
+        else if(data->nRootsRef == TWO_ROOTS){
+            printf(ENTER_FIRST_ROOT);
+            if(!getAnswer(answers.ans1)) return false;
+            printf(ENTER_SECOND_ROOT);
+            if(!getAnswer(answers.ans2)) return false;
         }
 
-        flag = false;
+        sscanf(answers.ans1, "%lf", &conversion1);
+        sscanf(answers.ans2, "%lf", &conversion2);
+
+        break;
     }
 
-    setAnswers(data, conversion1, conversion2);
+    setAnswers(data, conversion1, conversion2); // roots
 
     return true;
 }
@@ -165,11 +163,7 @@ static menu_mode_t get_mode(){
     return mode - MENU_FIRST_ITEM;
 }
 
-static void clearBuffer(){
-    while(getchar() != '\n'){
-        continue;
-    }
-}
+
 
 static int getRandMax(){
     int randMaxModule = 0;
@@ -178,19 +172,26 @@ static int getRandMax(){
         printf(TRY_AGAIN);
         clearBuffer();
     }
-    clearBuffer();
     return randMaxModule;
 }
 
 static bool getAnswer(char* answer){
-    char ch = 0;
+    int ch = 0;
     int i = 0;
-    while(!isspace(ch = getchar())){
+
+    ch = getchar();
+    if(ch == '\r');
+    else{
+         answer[i] = ch;
+         i++;
+    }
+
+    while(!isspace(ch = getchar())){ // [-1; 256)
         if(ch == RETURN_TO_TOP_MENU){
             clearBuffer();
             return false;
         }
-        answer[i] = ch;
+        answer[i] = (char)ch;
         i++;
     }
     i++;
@@ -200,13 +201,28 @@ static bool getAnswer(char* answer){
 
 static void setAnswers(testsData_t* data, double conversion1, double conversion2){
     if(data->nRootsRef == TWO_ROOTS){
-        printf("%lf, %lf\n", conversion1, conversion2);
         sortRoots(&conversion1, &conversion2);
         data->equationData.roots.x1 = conversion1;
         data->equationData.roots.x2 = conversion2;
-        printf("%lf, %lf\n", conversion1, conversion2);
     }
     else if(data->nRootsRef == ONE_ROOT){
         data->equationData.roots.x1 = conversion1;
+    }
+}
+
+static numRoots getNRoots(){
+    char nRoots = 0;
+    while(!scanf(" %c", &nRoots) || nRoots <  'a' || nRoots > 'd') {
+        if(nRoots == '\n' || nRoots == '\r') continue;
+        printf(ALERT_INCORRECT);
+        clearBuffer();
+    }
+
+    switch(nRoots){
+        case 'a' : return ONE_ROOT;
+        case 'b' : return TWO_ROOTS;
+        case 'c' : return NO_VALID_ROOTS;
+        case 'd' : return INFINITY_OF_ROOTS;
+        default: printf(ALERT_INCORRECT); assert(false);
     }
 }

@@ -3,6 +3,7 @@
 #include "solve.h"
 #include "common.h"
 #include "unitTests.h"
+#include "image.h"
 
 const char* WORK_IN_PROGRESS = "В разработке\n";
 
@@ -27,32 +28,60 @@ void randomEquations(){
 }
 
 void trainerEquations(){
+    
     testsData_t reference = {0};
 
-    int randMaxModule = chooseRandMaxModule();
-    while(true){
-        genRandomCoefs(&reference.equationData, randMaxModule);
-        
-        reference.nRootsRef = solveQuadEqua(&reference.equationData);
+    complexity_mode_t complexity = chooseComplexity(); // func
 
-        sortRoots(&reference.equationData.roots.x1, &reference.equationData.roots.x2);
+    printf(allComplexityModes[complexity].stringDescription);
+    while(true){
+        (*allComplexityModes[complexity].function)(&reference);
 
         printf(INSTRUCTION_TRAINER);
         printf(EQUATION, reference.equationData.coefs.a, 
-                        reference.equationData.coefs.b, 
-                        reference.equationData.coefs.c);
+                         reference.equationData.coefs.b, 
+                         reference.equationData.coefs.c);
 
         testsData_t userData = {0};
         userData.equationData.coefs = reference.equationData.coefs;
-        if(!userEnterSolution(&userData)) break; // норм или лучше со скобками?
-
-        printf("ref %lf — user %lf\nref %lf — user %lf\nref %d — user %d\n", reference.equationData.roots.x1, 
-                                                                            userData.equationData.roots.x1,
-                                                                            reference.equationData.roots.x2,
-                                                                            userData.equationData.roots.x2,
-                                                                            reference.nRootsRef,
-                                                                            userData.nRootsRef);
+        printf(BECOME_MILLONER);
+        if(!userEnterSolution(&userData)) break;
 
         printDependingOnResult(isSolutionRight(&reference, &userData));
     }
 }
+
+complexity_mode_t chooseComplexity(){
+    printf(CHOOSE_COMPLEXITY_INSTRUCTION);
+
+    int complexity = 0;
+    while(!scanf("%d", &complexity) || complexity < 1 || complexity > 2){
+        printf(ALERT_INCORRECT);
+        clearBuffer();
+    }
+
+    return complexity - 1;
+}
+
+void easyComplexity(testsData_t* reference){
+    genRandomRoots(&reference->equationData);
+    sortRoots(&reference->equationData.roots.x1, &reference->equationData.roots.x2);
+
+    reference->nRootsRef = TWO_ROOTS;
+
+    calcCoefsForRoots(&reference->equationData);
+}
+
+void hardComplexity(testsData_t* reference){
+
+    int randMaxModule = chooseRandMaxModule();
+    
+    genRandomCoefs(&reference->equationData, randMaxModule);
+    // equ 
+    // creat
+    reference->nRootsRef = solveQuadEqua(&reference->equationData);
+
+    sortRoots(&reference->equationData.roots.x1, &reference->equationData.roots.x2);
+}
+
+

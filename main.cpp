@@ -6,7 +6,7 @@
 #include "UI.h"
 #include "unitTests.h"
 
-int main(void){
+int main(){
     printf("%s", WELCOME);
     int nAllTests = 0;
     int nPassed = RunTest(&nAllTests);
@@ -19,7 +19,7 @@ int main(void){
             break;
         }
 
-        (allModes[mode].function)();
+        allModes[mode].function();
     }
 
     return 0;

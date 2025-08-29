@@ -5,6 +5,7 @@
 
 numRoots solveLinear(double k, double b, double* x); 
 numRoots solveQuadEqua(equationData_t* data);
-void genRandomCoefs(equationData_t* data, int randMax);
+
+void calcCoefsForRoots(equationData_t* reference);
 
 #endif
